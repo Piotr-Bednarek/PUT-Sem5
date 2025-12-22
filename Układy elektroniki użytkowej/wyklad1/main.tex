@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+
+\pdfobjcompresslevel=3    % compress PDF objects
+\pdfcompresslevel=9       % compress streams more (0..9)
+\pdfminorversion=4
+
+
+\usepackage[utf8]{inputenc} % remove if using XeLaTeX or LuaLaTeX
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+
+% Layout & graphics
+\usepackage[a4paper, total={7.5in, 9in}]{geometry}
+\usepackage{graphicx}              % images
+\usepackage[dvipsnames,table]{xcolor} % single xcolor invocation (keeps table option)
+
+% Math & symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+
+% Typography & layout helpers
+\usepackage{float}                 % [H] placement
+\usepackage{caption}
+\usepackage{subcaption}            % modern subfigure support (do NOT load subfig)
+\usepackage{multirow}
+\usepackage{titlesec}
+
+\usepackage{lmodern}
+
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\pgfplotsset{compat=1.18}
+
+\definecolor{xppblue}{RGB}{37, 150, 190}
+
+\title{Ograniczniki napięcia}
+\author{Piotr Bednarek}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section{Układy pomiarowe}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{uklad.png}
+    \caption{Ukady pomiarowe "soft" i "hard" limiting}
+    \label{fig:circuit1}
+\end{figure}
+
+\section{Sygnały}
+\subsection{Poniżej progu ograniczania}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{1.png}
+    \caption{Wejścia i wyjścia obu układów}
+    \label{fig:1}
+\end{figure}
+
+Dla sygnałów poniżej progu ograniczania oba układy zachowują się podobnie, co widać na
+rysunku \ref{fig:1}. Wyjścia obu układów są niemal identyczne z wejściem, co oznacza, że
+sygnał nie został ograniczony.
+
+\subsection{Powyżej progu ograniczania}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{12.png}
+    \caption{Wejścia i wyjścia obu układów}
+    \label{fig:2}
+\end{figure}
+
+W przypadku sygnałów przekraczających próg ograniczania, oba układy wykazują ograniczenia
+sygnału wyjściowego w różny sposób.
+
+\subsection{Działanie progu w zależności od wzmocnienia wzmacniacza operacyjnego}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{2.png}
+    \caption{Kilka wariantów wzmocnień sygnału wejściowego}
+    \label{fig:3}
+\end{figure}
+
+Próg zadziałania ogranicznika zależy od napięcia Zenera. Zmiana
+wzmocnienia wpływa na wartość napięcia wyjściowego, co jest widoczne na rysunku
+\ref{fig:3}, lecz nie wpływa na sam próg ograniczania.
+
+\subsection{Ograniczenie amplitudy przez napięcia zasilające}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{3.png}
+    \caption{Kilka wariantów wzmocnień sygnału wejściowego}
+    \label{fig:33}
+\end{figure}
+
+Przy dużej amplitudzie sygnału wyjście wzmacniacza osiąga granice napięć zasilających, co
+prowadzi do obcięcia (saturacji) sygnału.
+
+\section{Zniekształcenia harmoniczne wprowadzane przez ogranicznik}
+
+
+\subsection{Widmo sygnału wyjściowego}
+
+\subsubsection{Widmo sygnału wyjściowego dla obu wariantów układu}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{widmo1.png}
+    \caption{Widmo sygnału wyjściowego dla "soft" \ limiting}
+    \label{fig:widmo1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{widmo2.png}
+    \caption{Widmo sygnału wyjściowego dla "hard" \ limiting}
+    \label{fig:widmo2}
+\end{figure}
+
+
+\subsubsection{Wartość parametru THD}
+Na podstawie analizy widma odczytano z LTSpice wartość współczynnika zniekształceń
+harmonicznych THD (Total Harmonic Distortion).
+\begin{itemize}
+    \item Dla ograniczenia miękkiego (soft limiting) THD $\approx$ 20.87\%
+    \item Dla ograniczenia ostrego (hard limiting) THD $\approx$ 20.73\%
+\end{itemize}
+
+\subsubsection{Harmoniczne obecne w sygnale wyjściowym}
+W widmie sygnału wyjściowego pojawiają się głównie harmoniczne nieparzyste (1 kHz, 3 kHz, 5 kHz, 7 kHz),
+charakterystyczne dla nieliniowości symetrycznych.
+
+\subsubsection{Zastosowanie parametru THD}
+Parametr THD służy do oceny jakości przetwarzania sygnałów w układach elektronicznych.
+Stosuje się go m.in. do charakterystyki wzmacniaczy audio, przetworników
+analogowo-cyfrowych oraz układów ograniczających, gdzie informuje o stopniu
+zniekształcenia sygnału wyjściowego względem idealnego przebiegu sinusoidalnego.
+
+
+\end{document}

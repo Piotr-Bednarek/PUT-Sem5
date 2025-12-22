@@ -1,0 +1,417 @@
+\documentclass[11pt]{article}
+
+\pdfobjcompresslevel=3    % compress PDF objects
+\pdfcompresslevel=9       % compress streams more (0..9)
+\pdfminorversion=4
+
+
+\usepackage[utf8]{inputenc} % remove if using XeLaTeX or LuaLaTeX
+\usepackage[T1]{fontenc}
+
+% Layout & graphics
+\usepackage[a4paper, total={7.5in, 9in}]{geometry}
+\usepackage{graphicx}              % images
+\usepackage[dvipsnames,table]{xcolor} % single xcolor invocation (keeps table option)
+
+% Math & symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+
+% Typography & layout helpers
+
+\usepackage{polski}[babel]
+
+\usepackage{microtype}
+\usepackage{float}                 %  placement
+\usepackage{caption}
+\usepackage{subcaption}            % modern subfigure support (do NOT load subfig)
+\usepackage{multirow}
+\usepackage{titlesec}
+
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\pgfplotsset{compat=1.18}
+
+\definecolor{xppblue}{RGB}{37, 150, 190}
+
+\begin{document}
+
+\begin{table}
+    \centering
+    \scalebox{1.5}{
+        \begin{tabular}{|c|p{3cm}|l|l|cl|}
+            \hline
+            \multicolumn{4}{|c|}{SPRAWOZDANIE Z LABORATORIUM}                         & \multicolumn{2}{c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}rok akademicki:\\ 2025/26\end{tabular}}}                                                          \\ \cline{1-4}
+            \multicolumn{4}{|c|}{\textbf{Układy elektroniki użytkowej}}               & \multicolumn{2}{c|}{}                                                                                                                                            \\ \hline
+            \multicolumn{4}{|c|}{\multirow{2}{*}{\textit{Relaksacyjny generator RC}}} & \multicolumn{2}{c|}{\multirow{2}{*}{czwartek 8:00}}                                                                                                              \\
+            \multicolumn{4}{|c|}{}                                                    & \multicolumn{2}{c|}{}                                                                                                                                            \\ \hline
+            \multicolumn{1}{|c|}{WARiE, AiR, sem 5}                                   & \multicolumn{3}{p{5cm}|}{\begin{tabular}[c]{@{}l@{}}1. Piotr Cybal\\ \underline{2. Piotr Bednarek}\end{tabular}} & \multicolumn{2}{l|}{\multirow{2}{*}{Punkty:}} \\ \cline{1-1}
+            \multicolumn{1}{|c|}{08.12.2025}                                          & \multicolumn{3}{c|}{}                                                                                            & \multicolumn{2}{l|}{}                         \\ \hline
+        \end{tabular}
+    }
+\end{table}
+
+\vspace{1\baselineskip}
+
+\section*{Sprzęt}
+\begin{itemize}
+    \item Numer stanowiska: 8
+    \item Numer Elvisa: B
+    \item Numer skrzynki z elementami: 3
+\end{itemize}
+
+\section{Cel ćwiczenia}
+
+Celem ćwiczenia jest praktyczne zapoznanie się z zasadą działania relaksacyjnego
+generatora RC sygnału prostokątnego, wykorzystującego w swojej strukturze wzmacniacz
+operacyjny w konfiguracji przerzutnika Schmitta. W ramach laboratorium
+przeprowadzona zostanie obserwacja oscyloskopowa przebiegów czasowych napięcia wyjściowego
+oraz napięcia na kondensatorze, co pozwoli na analizę charakterystyki dynamicznej
+układu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{DZIALA.png}
+    \caption{Przykładowy przebieg czasowy napięcia na kondensatorze oraz napięcia wyjściowego generatora}
+    \label{fig:przebiegi}
+\end{figure}
+
+Na powyższym rysunku przedstawiono charakterystyczny przebieg pracy generatora: napięcie
+na kondensatorze narasta i opada wykładniczo, dążąc do napięć nasycenia wzmacniacza. W
+momentach osiągnięcia progów przełączania przerzutnika Schmitta następuje gwałtowna zmiana
+napięcia wyjściowego, co generuje sygnał prostokątny.
+
+\section{Wzory}
+
+\paragraph{Częstotliwość napięcia wyjściowego generatora relaksacyjnego RC}
+\begin{equation}
+    f_{gen} = \frac{1}{2RC \ln \frac{1+\beta}{1-\beta}}
+\end{equation}
+gdzie:
+\begin{itemize}
+    \item $\beta$ to stopień sprzężenia zwrotnego.
+\end{itemize}
+
+\paragraph{Stopień sprzężenia zwrotnego}
+\begin{equation}
+    \beta = \frac{U_{c,pom}}{U_{m,pom}}
+\end{equation}
+gdzie:
+\begin{itemize}
+    \item $U_{c,pom}$ to napięcie sterujące, w przybliżeniu równe napięciu kondensatora,
+    \item $U_{m,pom}$ to międzyszczytowe napiecie wyjściowe generatora.
+\end{itemize}
+
+\section{Pomiary dla różnych konfiguracji układu RC}
+
+Znaczące rozbieżności pomiędzy pomiarem częstotliwości generatora a obliczeniem
+częstotliwości są spowodowane włączonym pomiarem dwóch kanałów oscyloskopu.
+Zakłamuje to rzeczywistą wartość częstotliwości generatora, im wyższa jest częstotliwość
+wyjściowa generatora tym Swiększa jest różnica między pomiarem a obliczeniem częstotliwości.
+
+
+\subsection{1. Konfiguracja układu RC}
+
+\begin{table}[H]
+    \centering
+    \caption{Wartości elementów RC dla pierwszej konfiguracji}
+    \sisetup{
+        output-decimal-marker = {,}
+    }
+    \begin{tabular}{cS[table-format=3.0]S[table-format=3.3]}
+        \toprule
+        Element & {Wartość nominalna}   & {Wartość zmierzona}     \\
+        \midrule
+        $R$     & \SI{20}{\kilo\ohm}    & \SI{19.866}{\kilo\ohm}  \\
+        $C$     & \SI{100}{\nano\farad} & \SI{104,7}{\nano\farad} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Obliczona stała czasowa: $\tau  = \SI{19,866}{\kilo\ohm} \cdot \SI{104,7}{\nano\farad} = \SI{2079,9702}{\micro\second}$
+
+\begin{table}[H]
+    \centering
+    \caption{Wyniki pomiarów częstotliwości generatora w zależności od napięcia sterującego $U_c$}
+    \sisetup{
+        output-decimal-marker = {,}
+    }
+    \begin{tabular}{
+            S[table-format=2.0]
+            S[table-format=2.4]
+            S[table-format=2.3]
+            S[table-format=1.4]
+            S[table-format=4.0]
+            S[table-format=4.2]
+        }
+        \toprule
+        \multicolumn{1}{c}{$U_c$ (V)} & \multicolumn{1}{c}{$U_{c,pom}$ (V)} & \multicolumn{1}{c}{$U_{m,pom}$ (V)} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{$f_{gen,pom}$ (Hz)} & \multicolumn{1}{c}{$f_{gen,obl}$ (Hz)} \\
+        \midrule
+        2                             & 1.999                               & 17.409                              & 0.1148                      & 1291                                   & 1083.81                                \\
+        3                             & 3.036                               & 17.422                              & 0.1743                      & 829                                    & 709.99                                 \\
+        4                             & 4.04                                & 17.43                               & 0.2318                      & 606                                    & 529.49                                 \\
+        5                             & 4.993                               & 17.443                              & 0.2862                      & 473                                    & 424.49                                 \\
+        6                             & 6.0006                              & 17.452                              & 0.3438                      & 349                                    & 348.74                                 \\
+        7                             & 7.001                               & 17.469                              & 0.4008                      & 290                                    & 294.42                                 \\
+        8                             & 7.996                               & 17.491                              & 0.4571                      & 246                                    & 253.19                                 \\
+        9                             & 9.015                               & 17.501                              & 0.5151                      & 210                                    & 219.43                                 \\
+        10                            & 10.013                              & 17.513                              & 0.5717                      & 181                                    & 192.27                                 \\
+        11                            & 11.017                              & 17.522                              & 0.6288                      & 157                                    & 169.07                                 \\
+        12                            & 12.011                              & 17.531                              & 0.6851                      & 137                                    & 149.04                                 \\
+        13                            & 13.027                              & 17.541                              & 0.7427                      & 111                                    & 130.70                                 \\
+        14                            & 14.001                              & 17.551                              & 0.7977                      & 96                                     & 114.43                                 \\
+        15                            & 15.031                              & 17.565                              & 0.8557                      & 81                                     & 97.87                                  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsection{2. Konfiguracja układu RC}
+
+\begin{table}[H]
+    \centering
+    \caption{Wartości elementów RC dla drugiej konfiguracji}
+    \sisetup{
+        output-decimal-marker = {,}
+    }
+    \begin{tabular}{cS[table-format=3.0]S[table-format=3.3]}
+        \toprule
+        Element & {Wartość nominalna}  & {Wartość zmierzona}     \\
+        \midrule
+        $R$     & \SI{10}{\kilo\ohm}   & \SI{9,913}{\kilo\ohm}   \\
+        $C$     & \SI{22}{\nano\farad} & \SI{21,56}{\nano\farad} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Obliczona stała czasowa: $\tau  = \SI{9,913}{\kilo\ohm} \cdot \SI{21,56}{\nano\farad} = \SI{213,7243}{\micro\second}$
+
+
+\begin{table}[H]
+    \centering
+    \caption{Wyniki pomiarów częstotliwości generatora w zależności od napięcia sterującego $U_c$ dla drugiej konfiguracji}
+    \sisetup{
+        output-decimal-marker = {,}
+    }
+    \begin{tabular}{
+            S[table-format=2.0]
+            S[table-format=2.3]
+            S[table-format=2.3]
+            S[table-format=1.4]
+            S[table-format=5.0]
+            S[table-format=5.2]
+        }
+        \toprule
+        \multicolumn{1}{c}{$U_c$ (V)} & \multicolumn{1}{c}{$U_{c,pom}$ (V)} & \multicolumn{1}{c}{$U_{m,pom}$ (V)} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{$f_{gen,pom}$ (Hz)} & \multicolumn{1}{c}{$f_{gen,obl}$ (Hz)} \\
+        \midrule
+        2                             & 1.998                               & 17.244                              & 0.1159                      & 12180                                  & 9763.49                                \\
+        3                             & 3.006                               & 17.269                              & 0.1741                      & 7999                                   & 6461.75                                \\
+        4                             & 3.999                               & 17.291                              & 0.2313                      & 6051                                   & 4824.55                                \\
+        5                             & 5.031                               & 17.317                              & 0.2905                      & 4753                                   & 3798.79                                \\
+        6                             & 6.001                               & 17.336                              & 0.3462                      & 3951                                   & 3147.19                                \\
+        7                             & 7.034                               & 17.356                              & 0.4053                      & 3311                                   & 2643.03                                \\
+        8                             & 8.003                               & 17.381                              & 0.4604                      & 2959                                   & 2282.42                                \\
+        9                             & 9.015                               & 17.405                              & 0.5180                      & 2575                                   & 1981.31                                \\
+        10                            & 10.022                              & 17.426                              & 0.5751                      & 2164                                   & 1734.54                                \\
+        11                            & 11.006                              & 17.447                              & 0.6308                      & 1912                                   & 1529.87                                \\
+        12                            & 12.016                              & 17.472                              & 0.6877                      & 1682                                   & 1346.99                                \\
+        13                            & 13.061                              & 17.496                              & 0.7465                      & 1466                                   & 1177.54                                \\
+        14                            & 14.004                              & 17.515                              & 0.7995                      & 1289                                   & 1035.56                                \\
+        15                            & 15.005                              & 17.546                              & 0.8552                      & 1104                                   & 891.18                                 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\section{Charakterystyki częstotliwościowe}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=0.9\textwidth,
+                height=0.4\textheight,
+                xlabel={Stopień sprzężenia zwrotnego $\beta$},
+                ylabel={Częstotliwość $f_{gen}$ [Hz]},
+                grid=major,
+                legend pos=north east,
+                title={Charakterystyka $f_{gen}(\beta)$ dla 1. konfiguracji RC}
+            ]
+
+            % Calculated points (Theory)
+            \addplot[
+                color=blue,
+                mark=*,
+                mark size=2pt,
+                thick
+            ]
+            coordinates {
+                    (0.1148, 1083.81)
+                    (0.1743, 709.99)
+                    (0.2318, 529.49)
+                    (0.2862, 424.49)
+                    (0.3438, 348.74)
+                    (0.4008, 294.42)
+                    (0.4571, 253.19)
+                    (0.5151, 219.43)
+                    (0.5717, 192.27)
+                    (0.6288, 169.07)
+                    (0.6851, 149.04)
+                    (0.7427, 130.70)
+                    (0.7977, 114.43)
+                    (0.8557, 97.87)
+                };
+            \addlegendentry{Krzywa obliczona}
+
+            % Measured Curve (Points + Line)
+            \addplot[
+                color=red,
+                mark=square*,
+                mark size=2pt,
+                thick
+            ]
+            coordinates {
+                    (0.1148, 1291)
+                    (0.1743, 829)
+                    (0.2318, 606)
+                    (0.2862, 473)
+                    (0.3438, 349)
+                    (0.4008, 290)
+                    (0.4571, 246)
+                    (0.5151, 210)
+                    (0.5717, 181)
+                    (0.6288, 157)
+                    (0.6851, 137)
+                    (0.7427, 111)
+                    (0.7977, 96)
+                    (0.8557, 81)
+                };
+            \addlegendentry{Krzywa zmierzona}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Wykres zależności częstotliwości generatora od stopnia sprzężenia zwrotnego dla 1. konfiguracji}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=0.9\textwidth,
+                height=0.4\textheight,
+                xlabel={Stopień sprzężenia zwrotnego $\beta$},
+                ylabel={Częstotliwość $f_{gen}$ [Hz]},
+                grid=major,
+                legend pos=north east,
+                title={Charakterystyka $f_{gen}(\beta)$ dla 2. konfiguracji RC}
+            ]
+            % Calculated points
+            \addplot[
+                color=blue,
+                mark=*,
+                mark size=2pt,
+                thick
+            ]
+            coordinates {
+                    (0.1159, 9763.49)
+                    (0.1741, 6461.75)
+                    (0.2313, 4824.55)
+                    (0.2905, 3798.79)
+                    (0.3462, 3147.19)
+                    (0.4053, 2643.03)
+                    (0.4604, 2282.42)
+                    (0.5180, 1981.31)
+                    (0.5751, 1734.54)
+                    (0.6308, 1529.87)
+                    (0.6877, 1346.99)
+                    (0.7465, 1177.54)
+                    (0.7995, 1035.56)
+                    (0.8552, 891.18)
+                };
+            \addlegendentry{Wartości obliczone}
+
+            \addplot[
+                color=red,
+                mark=square*,
+                mark size=2pt,
+                thick
+            ]
+            coordinates {
+                    (0.1159, 12180)
+                    (0.1741, 7999)
+                    (0.2313, 6051)
+                    (0.2905, 4753)
+                    (0.3462, 3951)
+                    (0.4053, 3311)
+                    (0.4604, 2959)
+                    (0.5180, 2575)
+                    (0.5751, 2164)
+                    (0.6308, 1912)
+                    (0.6877, 1682)
+                    (0.7465, 1466)
+                    (0.7995, 1289)
+                    (0.8552, 1104)
+                };
+            \addlegendentry{Krzywa zmierzona}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Wykres zależności częstotliwości generatora od stopnia sprzężenia zwrotnego dla 2. konfiguracji}
+\end{figure}
+
+\section{Wpływ napięcia zasilania na pracę generatora}
+
+W tabeli poniżej przedstawiono wyniki pomiarów napięcia wyjściowego generatora w zależności od napięcia zasilania.
+
+\begin{table}[H]
+    \centering
+    \caption{Zależność amplitudy napięcia wyjściowego od napięcia zasilania}
+    \sisetup{
+        output-decimal-marker = {,}
+    }
+    \begin{tabular}{
+            S[table-format=2.1]
+            S[table-format=2.3]
+        }
+        \toprule
+        {$U_{zas}$ (V)} & {$U_m$ (V)} \\
+        \midrule
+        10              & 17.555      \\
+        9               & 15.614      \\
+        8               & 13.661      \\
+        7               & 11.703      \\
+        6               & 9.761       \\
+        5               & 7.818       \\
+        4               & 5.877       \\
+        3               & 3.945       \\
+        2               & 2.015       \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Stwierdzono, że generator przestaje działać przy napięciu zasilania równym \SI{1,5}{\volt}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{NIE DZIALA.png}
+    \caption{Oscylogram przedstawiający zanik oscylacji przy obniżonym napięciu zasilania}
+    \label{fig:zanik}
+\end{figure}
+
+\section{Wnioski końcowe}
+
+Przeprowadzone badania potwierdziły zgodność kształtu charakterystyki częstotliwościowej z
+modelem teoretycznym, mimo występowania systematycznego przesunięcia wartości pomiarowych
+względem obliczonych. Główną przyczyną tych rozbieżności jest dołączenie impedancji
+wejściowej oscyloskopu, która modyfikuje rzeczywistą stałą czasową układu RC, co jest
+szczególnie zauważalne przy wyższych częstotliwościach. Dodatkowo wykazano bezpośrednią
+zależność amplitudy sygnału wyjściowego od napięcia zasilania oraz wyznaczono dolny próg
+napięcia (ok. \SI{1,5}{\volt}), poniżej którego wzmacniacz wchodzi w nasycenie i generator
+przestaje pracować.
+
+\end{document}

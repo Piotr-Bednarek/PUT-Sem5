@@ -1,0 +1,739 @@
+\documentclass[12pt,a4paper]{article}
+
+% Polskie znaki i język
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{polski}
+
+% Matematyka
+\usepackage{amsmath, amssymb, amsfonts, mathtools}
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+
+% Grafika i wykresy
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+
+% Marginesy
+\usepackage{geometry}
+\geometry{ a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm }
+
+% Linki i odnośniki
+\usepackage{hyperref}
+\hypersetup{ colorlinks=true, linkcolor=black, filecolor=magenta,      
+    urlcolor=blue, pdftitle={Sprawozdanie}, }
+
+% Kod źródłowy
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definicja kolorów
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Konfiguracja stylu dla Pythona
+\lstdefinestyle{mystyle}{ backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize, % Czcionka maszynowa
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false, showtabs=false,                  
+    tabsize=2 }
+
+\lstset{style=mystyle}
+
+\lstdefinestyle{mystyle}{ backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize, breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false, showtabs=false,                  
+    tabsize=2, literate={ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+    {ó}{{\'o}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1 {Ą}{{\k{A}}}1 {Ć}{{\'C}}1
+    {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1 {Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
+    }
+\lstset{style=mystyle}
+
+% Nagłówki i stopki
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Piotr Bednarek}
+\lhead{Układy sterowania optymalnego}
+\cfoot{\thepage}
+
+% Tytuł i autor
+\title{Sprawozdanie\\ \large Układy sterowania optymalnego}
+\author{Piotr Bednarek}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Ćwiczenia 3 i 4: Sterowalność układów liniowych}
+
+\subsection{Równania stanu układu elektrycznego (Rys. \ref{fig:uklad2})}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/uklad1.png}
+    \caption{Układ elektryczny RC}
+    \label{fig:uklad1}
+\end{figure}
+
+Przyjęto: $x_1 = u_{c_1}, \ x_2 = u_{c_2}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/uklad2.png}
+    \caption{Układ elektryczny RC}
+    \label{fig:uklad2}
+\end{figure}
+Przyjęto: $x_1 = u_{c_1}, \ x_2 = u_{c_2}, \ x_3 = u_{c_3}$.
+
+
+
+
+\begin{equation}
+    \begin{bmatrix}
+        \dot{x}_1 \\
+        \dot{x}_2 \\
+        \dot{x}_3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        -\frac{1}{R_1 C_1} & 0                  & 0                  \\
+        0                  & -\frac{1}{R_2 C_2} & 0                  \\
+        0                  & 0                  & -\frac{1}{R_3 C_3}
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        \frac{1}{R_1 C_1} \\
+        \frac{1}{R_2 C_2} \\
+        \frac{1}{R_3 C_3}
+    \end{bmatrix}
+    u
+\end{equation}
+
+\subsection{Badanie sterowalności układu (Rys. \ref{fig:uklad2})}
+
+Macierz sterowalności Kalmana $\mathcal{K}$:
+\begin{equation}
+    \mathcal{K} = \begin{bmatrix} B & AB & A^2B \end{bmatrix} =
+    \begin{bmatrix}
+        1           & -1           & 1            \\
+        \frac{1}{2} & -\frac{1}{4} & \frac{1}{8}  \\
+        \frac{1}{3} & -\frac{1}{9} & \frac{1}{27}
+    \end{bmatrix}
+\end{equation}
+\\
+Rząd macierzy Kalmana:
+\begin{equation}
+    \text{rank}(\mathcal{K}) = 3 = n
+\end{equation}
+Rząd macierzy Kalmana jest równy rzędowi układu, co oznacza, że układ jest
+\textbf{sterowalny}.
+
+\subsection{Analiza odpowiedzi na wymuszenie}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/zmiennestanu1.png}
+        \caption{Przebiegi zmiennych stanu dla układu z rysunku \ref{fig:uklad1}}
+        \label{fig:przebiegi_zmiennych_stanu_uklad1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/zmiennestanu2.png}
+        \caption{Przebiegi zmiennych stanu dla układu z rysunku \ref{fig:uklad2}}
+        \label{fig:przebiegi_zmiennych_stanu_uklad2}
+    \end{subfigure}
+    \caption{Porównanie przebiegów zmiennych stanu dla układów RC z rysunków
+        \ref{fig:uklad1} i \ref{fig:uklad2}}
+    \label{fig:porownanie_przebiegów_zmiennych_stanu_układów}
+\end{figure}
+
+Analizując przebiegi zmiennych stanu (Rys.
+\ref{fig:porownanie_przebiegów_zmiennych_stanu_układów}), można zauważyć, że dla układu z
+rysunku \ref{fig:uklad1} przebiegi zmiennych stanu nakładają się na siebie, co oznacza, że
+układ jest \textbf{niesterowalny}. Dla układu z rysunku \ref{fig:uklad2} przebiegi
+zmiennych stanu reagują na różne wymuszenia z różnymi opóźnieniami, co oznacza, że układ
+jest \textbf{sterowalny}.
+
+\subsection{Postać sterowalna układu}
+Do wyznaczenia postaci sterowalnej układu należy rozwiązać równanie:
+\begin{equation}
+    \phi(s) = \det(I_n s - A) = s^n + \sum_{i=0}^{n-1} a_i s^i
+\end{equation}
+
+Następne uzyskane współczynniki $a_i$ podstawiamy do macierzy sterowalnej układu:
+\begin{equation}
+    A_s = \begin{bmatrix}
+        0      & 1      & 0      & 0        \\
+        \vdots & \vdots & \ddots & \vdots   \\
+        0      & 0      & 0      & 1        \\
+        -a_0   & -a_1   & \dots  & -a_{n-1}
+    \end{bmatrix}
+\end{equation}
+
+Macierz sterowalności układu ma postać dla układu z rysunku \ref{fig:uklad2}:
+\begin{equation}
+    A_s = \begin{bmatrix}
+        0            & 1  & 0             \\
+        0            & 0  & 1             \\
+        -\frac{1}{6} & -1 & -\frac{11}{6}
+    \end{bmatrix}
+\end{equation}
+
+Finalnie otrzymujemy postać sterowalną układu:
+\begin{equation}
+    \begin{cases}
+        \dot{x_s} = \begin{bmatrix}
+                        0            & 1  & 0             \\
+                        0            & 0  & 1             \\
+                        -\frac{1}{6} & -1 & -\frac{11}{6}
+                    \end{bmatrix}
+        x_s + \begin{bmatrix}
+                  0 \\
+                  0 \\
+                  1
+              \end{bmatrix}
+        u_s
+        \\
+        \\
+        y_s = \begin{bmatrix}
+                  \frac{1}{2} & 2 & \frac{11}{6}
+              \end{bmatrix}
+        x_s
+    \end{cases}
+\end{equation}
+
+\subsection{Przebiegi zmiennych stanu oraz wyjść systemów}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/porownanie_zmiennych_stanu.png}
+    \caption{Porównanie przebiegów zmiennych stanu układu w postaci sterowalnej i układu
+        oryginalnego z rysunku \ref{fig:uklad2}}
+    \label{fig:porownanie_zmiennych_stanu}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/wyjscia_systemow.png}
+    \caption{Porównanie przebiegów wyjść układu w postaci sterowalnej i układu
+        oryginalnego z rysunku \ref{fig:uklad2}}
+    \label{fig:wyjscia_systemow}
+\end{figure}
+
+\newpage
+
+\begin{itemize}
+    \item \textbf{Czy obie reprezentacje opisują te same obiekty w sposób równoważny?}
+          Tak, obie reprezentacje (oryginalna i sterowalna) opisują ten sam obiekt
+          dynamiczny. Na wykresie \ref{fig:wyjscia_systemow} widać, że przebiegi wyjść
+          układu w postaci sterowalnej i układu oryginalnego są jednakowe.
+
+    \item \textbf{Czy przebiegi dla obu reprezentacji są jednakowe?}
+          \begin{itemize}
+              \item \textbf{Wyjścia $y(t)$:} Są identyczne (Rys.
+                    \ref{fig:wyjscia_systemow}), ponieważ oba modele reprezentują ten sam
+                    system dla zewnętrznego obserwatora.
+              \item \textbf{Zmienne stanu $x(t)$:} Są różne (Rys.
+                    \ref{fig:porownanie_zmiennych_stanu}). W modelu oryginalnym zmienne
+                    stanu mają interpretację fizyczną (napięcia na kondensatorach),
+                    natomiast w modelu sterowalnym są tylko matematycznymi zmiennymi,
+                    które są kombinacjami oryginalnych zmiennych stanu.
+          \end{itemize}
+
+    \item \textbf{Znaczenie przy projektowaniu układu regulacji:} Postać sterowalna
+          upraszcza projektowanie układu regulacji, ponieważ specyficzna struktura macierzy
+          $A_s$ pozwala na łatwe zastosowanie metod lokowania biegunów. W modelu
+          oryginalnym zmienne stanu mają interpretację fizyczną, co oznacza, że nie jest
+          możliwe zastosowanie metod lokowania biegunów.
+\end{itemize}
+
+\subsection{Lokowanie biegunów}
+\textbf{Przedstawienie metody lokowania biegunów:}
+
+Wyznaczenie pierwiastków układu charakterystycznego:
+\begin{equation}
+    \det(sI - (A - BK)) = 0
+\end{equation}
+
+Macierz wzmocnień $K$ dla postaci sterowalnej:
+\begin{equation}
+    K = \begin{bmatrix}
+        9.8333 & 16.0 & 6.1667
+    \end{bmatrix}
+\end{equation}
+
+Każdy element wektora wzmocnień $K$ bezpośrednio wpływa na konkretny współczynnik równania
+charakterystycznego, co oznacza, że każdy element wektora $K$ wpływa na konkretny biegun
+układu.
+
+Bieguny układu sterowalnego:
+\begin{equation}
+    \begin{cases}
+        s_1 = -1 \\
+        s_2 = -2 \\
+        s_3 = -5
+    \end{cases}
+\end{equation}
+
+Wymuszenie zdefiniowano jako $u = -K x$, co oznacza, że bez zewnetrznych wymuszeń układ
+będzie dążył do stanu równowagi. Aby zobaczyć działanie regulatora, należy zastosować
+\textbf{niezerowe} warunki początkowe.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/symulacja-ukladu-zamknietego.png}
+    \caption{Odpowiedź układu zamkniętego na warunki początkowe $\dot{x}(0) =
+            \begin{bmatrix} 1 & 1 & 1 \end{bmatrix}^T$}
+    \label{fig:symulacja_ukladu_zamknietego}
+\end{figure}
+
+\section{Ćwiczenie 5: Podstawy optymalizacji matematycznej}
+
+
+\textbf{Przedstawiono problem optymalizacji dynamicznej:}
+\begin{equation}
+    J = \int_{0}^{1} 24x(t)t + 2\dot{x}(t)^2 - 4t \, dt \rightarrow min
+\end{equation}
+
+z ograniczeniami:
+\begin{equation}
+    x(0) = 1, \quad x(1) = 3
+\end{equation}
+
+Minimalna wartość całki uzyskana numerycznie: $J_{min} = 39.24$
+
+\subsection{Porównanie rozwiązania analitycznego i numerycznego}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/porownanie-numeryczne-analityczne.png}
+    \caption{Porównanie rozwiązania analitycznego i numerycznego}
+    \label{fig:porownanie-numeryczne-analityczne}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Czy rozwiązanie pokrywa się z tym wyznaczonym analitycznie?} \\
+          Nie, ponieważ rozwiązanie numeryczne jest nieprecyzyjne.
+    \item \textbf{Jaka metoda optymalizacji jest wykorzystywana w pakiecie
+              \textbf{\textit{gekko}}?} \\
+          Tryb \textbf{IMODE = 6} wykorzystuje metodę \textit{Dynamicznej Optymalizacji} -
+          minimalizacja złożonej funkcji celu.
+
+\end{itemize}
+
+\newpage
+
+\subsection{Kod programu do rozwiązania zadania optymalizacji}
+\begin{lstlisting}[language=Python, caption=Rozwiązanie w bibliotece GEKKO]
+import numpy as np 
+from gekko import GEKKO 
+import matplotlib.pyplot as plt
+
+# Parametry 
+n = 101
+
+# Model 
+model = GEKKO() 
+model.options.IMODE = 6
+
+# Parametry 
+model.time = np.linspace(0, 1, n) 
+t = model.Param(value=model.time)
+
+# Ograniczenia 
+x = model.Var() 
+model.fix_initial(x, 1) 
+model.fix_final(x, 3)
+
+# Inicjalizacja całki 
+J = model.Var(value=0) 
+model.fix_initial(J, 0)
+
+# Równanie różniczkowe 
+model.Equation(J.dt() == 24 * x * t + 2 * x.dt()**2 - 4 * t)
+
+# Cel 
+final_cost = model.FV() 
+final_cost.STATUS = 1 
+model.Connection(final_cost, J, pos2='end') 
+model.Obj(final_cost)
+
+# Konfiguracja solvera 
+model.options.SOLVER = 3
+
+# Rozwiązanie 
+model.solve(disp=False)
+
+print(f"\nMinimalna wartość całki (GEKKO): {final_cost.value[0]:.2f}")
+\end{lstlisting}
+
+\section{Ćwiczenie 6: Dobór optymalnych nastaw regulatora PID}
+\subsection{Przykładowy przebieg odpowiedzi systemu}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/odpowiedz-ukladu-pid.png}
+    \caption{Przykładowy przebieg odpowiedzi systemu}
+    \label{fig:przykladowy-przebieg-odpowiedzi-systemu}
+\end{figure}
+
+Wybrane nastawy regulatora PID:
+\begin{equation}
+    \begin{cases}
+        K_p = 5 \\
+        K_i = 8 \\
+        K_d = 2
+    \end{cases}
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{Jak zwiększanie/zmniejszanie wartości każdego z parametrów regulatora
+              PID wpływają na odpowiedź skokową układu?}
+          \begin{enumerate}
+              \item \textbf{$K_p$ - wzmocnienie proporcjonalne} \begin{itemize}
+                        \item \textbf{Zwiększanie}: Zwiększa szybkość reakcji układu, ale
+                              zwiększa też przeregulowanie. Zbyt duże $K_p$ może powodować
+                              oscylacje.
+                        \item \textbf{Zmniejszanie}: Układ reaguje wolniej, ale jest
+                              stabilniejszy.
+                    \end{itemize}
+
+              \item \textbf{$K_i$ - wzmocnienie całkujące} \begin{itemize}
+                        \item \textbf{Zwiększanie}: Szybsza eliminacja uchybu kosztem
+                              ryzyka wprowadzenia niestabilności przy zbyt dużej wartości.
+                        \item \textbf{Zmniejszanie}: Wolniejsza redukcja uchybu, ale
+                              mniejsze oscylacje.
+                    \end{itemize}
+
+              \item \textbf{$K_d$ - wzmocnienie różniczkujące} \begin{itemize}
+                        \item \textbf{Zwiększanie}: Tłumi oscylacje wprowadzane przez człon
+                              proporcjonalny. Skraca czas ustalania.
+                        \item \textbf{Zmniejszanie}: Słabsze tłumienie oscylacji, układ
+                              bardziej podatny na przeregulowania wprowadzone przez człon
+                              proporcjonalny.
+                    \end{itemize}
+          \end{enumerate}
+    \item \textbf{Czy możliwe jest uzyskanie zerowego uchybu ustalonego dla regulatora
+              typu P?} \\ Nie, ponieważ układ RLC wymaga utrzymania niezerowego sygnału
+          wejściowego. W regulatorze typu P sygnał sterujący jest proporcjonalny do
+          uchybu. W przypadku, gdzie uchyb spada do zera, sygnał sterujący również
+          spada do zera, co powoduje, że układ RLC zaczyna się poruszać w drugą
+          stronę.
+    \item \textbf{Jakie są najmniejsze wartości nastaw regulatora PI gwarantujące
+              zerowanie uchybu ustalonego?} \\ Teoretycznie każda wartość $K_i >0$. Człon
+          całkujący wprowadza do układu biegun w zerze, co matematycznie wymusza
+          redukcję uchybu do zera w stanie ustalonym, niezależnie od wielkości
+          wzmocnienia.
+    \item \textbf{Czy możliwe jest uzyskanie czasu ustalania mniejszego niż $2s$? Dla
+              jakich nastaw i jakiego typu regulatora?} \\ Tak, możliwe jest uzyskanie
+          czasu ustalania mniejszego niż $2s$ dla regulatora typu PID. \\
+\end{itemize}
+
+\subsection{Dobór nastaw metodą Ziegler-Nicholsa}
+Wartość wzmocnienia granicznego dobrana eksperymentalnie wynosi $k_u = 240$. Okres drgań
+odpowiedzi układu $T_u = 1.8220 s$.
+
+Dla parametrów krytycznych $K_u=30.5$ oraz $T_u=3.14$ wyznaczono nastawy dla regulatorów
+P, PI, PD oraz PID korzystając z tabeli Zieglera-Nicholsa:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Regulator & $K_p$  & $K_i$  & $K_d$ \\
+        \hline
+        P         & 15,250 & ---    & ---   \\
+        PI        & 13,725 & 5,245  & ---   \\
+        PD        & 24,400 & ---    & 9,577 \\
+        PID       & 18,300 & 11,656 & 7,183 \\
+        \hline
+    \end{tabular}
+    \caption{Wyliczone nastawy regulatorów}
+    \label{tab:nastawy_zn_nowe}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/pid-ziegler-nichols.png}
+    \caption{Porównanie odpowiedzi systemu dla regulatorów P, PI, PD i PID dobranych metodą Ziegler-Nicholsa}
+    \label{fig:porownanie-odpowiedzi-systemu}
+\end{figure}
+\subsection{Całkowe wskaźniki jakości}
+
+W tabeli \ref{tab:wskazniki_jakosci} przedstawiono wartości wskaźników jakości dla różnych
+nastaw regulatora. Zestawienie obejmuje błąd kwadratowy (ISE), błąd z wagą czasu (ITAE)
+oraz koszt całkowity $I_{OPT}$ obliczony dla dwóch scenariuszy: drogiego sterowania
+($r=1$) oraz taniego sterowania ($r=0.01$).
+
+\begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{5pt} % Zmniejszenie odstępów w kolumnach dla lepszego
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Nazwa nastaw} & \textbf{ISE}              & \textbf{ITAE}   & \textbf{Koszt ($r=1$)}
+                              & \textbf{Koszt ($r=0.01$)}                                            \\
+        \hline
+        Ziegler-Nichols       & 1,1117                    & 3,3700          & 4142,4496
+                              & 42,5251                                                              \\
+        \hline
+        Min. ISE / Szybki     & \textbf{0,7117}           & \textbf{2,2469} & 5776,9423
+                              & 58,4740                                                              \\
+        \hline
+        Min. IOPT / Oszczędny & 4,1292                    & 26,0145         & \textbf{1067,9123}
+                              & \textbf{14,7670}                                                     \\
+        \hline
+    \end{tabular}
+    \caption{Porównanie wskaźników całkowych dla różnych nastaw}
+    \label{tab:wskazniki_jakosci}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/wskazniki-jakosci.png}
+    \caption{Porównanie wskaźników całkowych dla różnych nastaw}
+    \label{fig:wskazniki_jakosci}
+\end{figure}
+
+\section{Ćwiczenia 7-8: Regulator optymalny LQR}
+\subsection{Odpowiedź skokowa i regulator LQR}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/uklad-rlc.png}
+    \caption{Badany układ RLC}
+    \label{fig:uklad-rlc}
+\end{figure}
+
+Przyjęto parametry układu: $R = 0.5\,\Omega$, $C = 0.5\,\text{F}$ oraz $L = 0.2\,\text{H}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/wymuszenie-skokowe.png}
+    \caption{Odpowiedź układu z rysunku \ref{fig:uklad-rlc} na wymuszenie skokowe}
+    \label{fig:odpowiedz-skokowa}
+\end{figure}
+
+Wyznaczone wartości macierzy wzmocnień $K$:
+\begin{equation}
+    K = \begin{bmatrix}
+        0.0990 & 0.6615
+    \end{bmatrix}
+\end{equation}
+
+\newpage
+
+Odpowiedź układu zamkniętego z regulatorem LQR na wymuszenie skokowe:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/odpowiedz-lqr.png}
+    \caption{Odpowiedź układu z rysunku \ref{fig:uklad-rlc} z regulatorem LQR na wymuszenie skokowe}
+    \label{fig:odpowiedz-lqr}
+\end{figure}
+
+Wpływ zmian wartości macierzy $Q$ oraz $R$ na odpowiedź układu:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/rozne-macierze.png}
+    \caption{Porównanie odpowiedzi układu dla różnych wartości macierzy wag regulatora LQR}
+    \label{fig:porownanie-odpowiedzi-lqr-macierze}
+\end{figure}
+
+\newpage
+
+Z przeprowadzonej analizy przebiegów na rysunku
+\ref{fig:porownanie-odpowiedzi-lqr-macierze} można zauważyć, że nadanie bardzo wysokiego
+priorytetu minimalizacji błędu (duża wartość macierzy $Q$) powoduje bardzo szybką
+stabilizację systemu kosztem agresywnego sterowania. Z kolei duży nacisk na oszczędzanie
+energii (duża wartość macierzy $R$) sprawia, że sterowanie staje się "tanie" i łagodne, co
+minimalizuje koszty eksploatacji, lecz znacznie wydłuża czas dochodzenia do
+równowagi. Ostatecznie, dobór optymalnych nastaw regulatora LQR jest zawsze kompromisem i
+wymaga ustalenia priorytetów projektowych: czy kluczowa jest maksymalna dynamika i
+precyzja, czy też minimalizacja zużycia energii i ochrona elementów wykonawczych.
+
+\subsection{Porównanie wyników}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/macierz-p.png}
+    \caption{Przebieg elementów macierzy $P$}
+    \label{fig:macierz-p}
+\end{figure}
+
+\subsubsection{Porównanie LQR ze skończonym i nieskończonym horyzontem czasowym}
+Celem zadania jest analiza porównawcza jakości sterowania regulatora LQR działającego w
+skończonym horyzoncie czasowym (ang. \textit{Finite Horizon}) względem regulatora z
+horyzontem nieskończonym (ang. \textit{Infinite Horizon}), który przyjęto jako wzorzec
+odniesienia. Zbadano wpływ długości horyzontu sterowania $t_1$ oraz wagi kary końcowej $S$
+na przebieg zmiennych stanu. Przyjęto następujące zestawy parametrów:
+\begin{itemize}
+    \item Czas symulacji (horyzont): $t_1 \in \{1, 2, 5\}$ s,
+    \item Macierz kary końcowej: $S \in \{I_2, 100I_2\}$.
+\end{itemize}
+
+Poniżej przedstawiono zestawienie odpowiedzi układu dla wszystkich kombinacji parametrów,
+ze szczególnym uwzględnieniem zdolności regulatora do poprawnej stabilizacji układu w
+zadanym czasie.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/porownanie-horyzontow.png}
+    \caption{Porównanie odpowiedzi układu dla różnych horyzontów czasowych oraz różnych zestawów parametrów}
+    \label{fig:porownanie-horyzontow}
+\end{figure}
+
+Zadanie stabilizacji układu zostało poprawnie zrealizowane w dwóch scenariuszach:
+
+\begin{enumerate}
+    \item \textbf{Skończony horyzont czasowy}: \begin{itemize}
+              \item $t_1 = 1$ s, $S = 100I_2$.
+              \item $t_1 = 2$ s, $S = 100I_2$.
+              \item $t_1 = 5$ s, $S = I_2$.
+              \item $t_1 = 5$ s, $S = 100I_2$.
+          \end{itemize}
+
+    \item \textbf{Nieskończony horyzont czasowy}: \begin{itemize}
+              \item $t_1 = 5$ s, $S = I_2$.
+              \item $t_1 = 5$ s, $S = 100I_2$.
+          \end{itemize}
+\end{enumerate}
+
+Powyższe zestawienie potwierdza, że skuteczna stabilizacja w skończonym horyzoncie
+czasowym jest możliwa w dwóch przypadkach: gdy czas regulacji jest wystarczająco długi
+($t_1=5$ s), co pozwala na naturalne wygaszenie stanu przejściowego niezależnie od doboru
+macierzy $S$, lub gdy narzucona jest bardzo wysoka kara końcowa ($S=100I_2$), która
+wymusza na regulatorze agresywne działanie w celu wyzerowania uchybu przed upływem
+krótkiego czasu ($t_1=1, 2$ s).
+
+\subsection{Stabilizacja w punkcie innym niż zero}
+
+W ramach zadania zmodyfikowano model symulacyjny, aby umożliwić stabilizację układu w
+zadanym, niezerowym punkcie równowagi. Sygnał sterujący ma postać:
+
+\begin{equation}
+    u(t) = -u_e + \frac{1}{C}q_d
+\end{equation}
+
+Przeprowadzono symulacje odpowiedzi układu zamkniętego dla trzech różnych wartości
+zadanych ładunku $q_d \in \{1, 2, 5\}$. Poniżej przedstawiono kod wykorzystany do
+rozwiązania tego zadania.
+
+\begin{lstlisting}[basicstyle=\scriptsize, language=Python, caption=Kod do rozwiązania zadania stabilizacji w punkcie innym niż zero]
+import numpy as np
+from scipy.integrate import odeint
+from scipy.linalg import solve_continuous_are
+import matplotlib.pyplot as plt
+
+R_val = 0.5
+L_val = 0.5
+C_val = 0.2
+
+A = np.array([[0, 1], [-1 / (L_val * C_val), -R_val / L_val]])
+B = np.array([[0], [1 / L_val]])
+Q = np.eye(2)
+R = np.array([[1]])
+P = solve_continuous_are(A, B, Q, R)
+K = np.linalg.inv(R) @ B.T @ P
+
+def model(x, t, K, q_t):
+    x_t = np.array([q_t, 0])
+    e = x_t - x
+    u_c = q_t / C_val
+    u = K @ e + u_c
+    dxdt = A @ x + B.flatten() * u[0]
+    return dxdt
+
+t = np.linspace(0, 10, 1000)
+x0 = np.array([0, 0])
+
+sol1 = odeint(model, x0, t, args=(K, 1))
+sol2 = odeint(model, x0, t, args=(K, 2))
+sol3 = odeint(model, x0, t, args=(K, 5))
+
+plt.figure(figsize=(12, 7))
+plt.plot(t, sol1[:, 0], 'g-', linewidth=2.5, label=r'Wartość zadana $q_d = 1$')
+plt.axhline(1, color='g', linestyle=':', alpha=0.5)
+plt.plot(t, sol2[:, 0], 'b--', linewidth=2.5, label=r'Wartość zadana $q_d = 2$')
+plt.axhline(2, color='b', linestyle=':', alpha=0.5)
+plt.plot(t, sol3[:, 0], 'r-.', linewidth=2.5, label=r'Wartość zadana $q_d = 5$')
+plt.axhline(5, color='r', linestyle=':', alpha=0.5)
+plt.title('Realizacja zadania śledzenia wartości zadanej', fontsize=20, fontweight='bold', pad=20)
+plt.xlabel('Czas [s]', fontsize=16)
+plt.ylabel('Ładunek $x_1(t)$', fontsize=16)
+plt.legend(fontsize=14)
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+\end{lstlisting}
+
+\newpage
+
+Wyniki symulacji przedstawiono na rysunku poniżej.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/sledzenie-wartosci-zadanej.png}
+    \caption{Porównanie odpowiedzi układu dla różnych horyzontów czasowych oraz różnych zestawów parametrów}
+    \label{fig:sledzenie-wartosci-zadanej}
+\end{figure}
+
+Analiza wyników potwierdza, że regulator LQR (pierwotnie zaprojektowany dla problemu
+stabilizacji w zerze) może być skutecznie wykorzystany do realizacji zadania śledzenia
+stałej wartości zadanej. Możliwość ta wynika z dwóch czynników:
+
+\begin{itemize}
+    \item \textbf{Przesunięcie układu współrzędnych:} Poprzez wprowadzenie wektora uchybu
+          $e = x_d - x$, dynamika błędu sprowadza się do problemu stabilizacji w zerze. Macierz
+          wzmocnień $K$ obliczona dla układu nominalnego zapewnia identyczną jakość tłumienia
+          uchybu, niezależnie od wartości zadanej.
+    \item \textbf{Kompensacja (Feedforward):} Warunkiem koniecznym utrzymania niezerowego
+          stanu jest podanie stałego sygnału sterującego $u_c$, który równoważy dynamikę układu
+          w punkcie równowagi (w tym przypadku równoważy napięcie na naładowanym kondensatorze).
+          Bez tego składnika układ dążyłby do rozładowania (powrotu do zera).
+\end{itemize}
+
+Warto zauważyć, że ze względu na liniowość obiektu, charakter odpowiedzi dynamicznej (czas
+narastania, przeregulowanie) jest identyczny dla każdej amplitudy wymuszenia $q_d$,
+zmienia się jedynie skala sygnałów.
+
+
+
+\end{document}

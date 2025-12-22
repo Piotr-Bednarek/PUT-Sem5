@@ -1,0 +1,335 @@
+\documentclass[11pt]{article}
+
+\pdfobjcompresslevel=3    % compress PDF objects
+\pdfcompresslevel=9       % compress streams more (0..9)
+\pdfminorversion=4
+
+
+\usepackage[utf8]{inputenc} % remove if using XeLaTeX or LuaLaTeX
+\usepackage[T1]{fontenc}
+
+% Layout & graphics
+\usepackage[a4paper, total={7.5in, 9in}]{geometry}
+\usepackage{graphicx}              % images
+\usepackage[dvipsnames,table]{xcolor} % single xcolor invocation (keeps table option)
+
+% Math & symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+
+% Typography & layout helpers
+\usepackage{microtype}
+\usepackage{float}                 % [H] placement
+\usepackage{caption}
+\usepackage{subcaption}            % modern subfigure support (do NOT load subfig)
+\usepackage{multirow}
+\usepackage{titlesec}
+
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\pgfplotsset{compat=1.18}
+
+\definecolor{xppblue}{RGB}{37, 150, 190}
+
+\begin{document}
+
+\begin{table}[h]
+    \centering
+    \scalebox{1.5}{
+        \begin{tabular}{|c|p{3cm}|l|l|cl|}
+            \hline
+            \multicolumn{4}{|c|}{SPRAWOZDANIE Z LABORATORIUM}                                  & \multicolumn{2}{c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}rok akademicki:\\ 2025/26\end{tabular}}}                                                          \\ \cline{1-4}
+            \multicolumn{4}{|c|}{\textbf{Układy elektroniki użytkowej}}                        & \multicolumn{2}{c|}{}                                                                                                                                            \\ \hline
+            \multicolumn{4}{|c|}{\multirow{2}{*}{\textit{Wzmacniacz z regulacją wzmocnienia}}} & \multicolumn{2}{c|}{\multirow{2}{*}{czwartek 8:00}}                                                                                                              \\
+            \multicolumn{4}{|c|}{}                                                             & \multicolumn{2}{c|}{}                                                                                                                                            \\ \hline
+            \multicolumn{1}{|c|}{WARiE, AiR, sem 5}                                            & \multicolumn{3}{p{5cm}|}{\begin{tabular}[c]{@{}l@{}}1. Piotr Cybal\\ \underline{2. Piotr Bednarek}\end{tabular}} & \multicolumn{2}{l|}{\multirow{2}{*}{Punkty:}} \\ \cline{1-1}
+            \multicolumn{1}{|c|}{15.10.2025}                                                   & \multicolumn{3}{c|}{}                                                                                            & \multicolumn{2}{l|}{}                         \\ \hline
+        \end{tabular}
+    }
+\end{table}
+
+\vspace{1\baselineskip}
+
+\section{Sprzęt}
+\begin{itemize}
+    \item Numer stanowiska: 8
+    \item Numer Elvisa: A
+    \item Elementy elektroniczne: 1
+\end{itemize}
+
+\section{Ćwiczenie}
+
+Na początku ćwiczenia złożyliśmy układ wzmacniacza operacyjnego z regulacją wzmocnienia za
+pomocą dobrania odpowiednich rezystorów. Następnie wykonywaliśmy pomiary wzmocnienia
+układu przy różnych częstotliwościach generowanej funkcji oraz porównywaliśmy z wartościami teoretycznymi uzyskanymi z odpowiednich wzorów.
+
+
+\section{Wzmacniacz nieodwracający}
+
+\subsection{Układ wzmacniacza}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/uklad1.png}
+    \caption{Układ wzmacniacza nieodwracającego}
+    \label{fig:uklad}
+\end{figure}
+
+\subsection{Pomiary}
+Do układu dobraliśmy 3 zestawy rezystorów:
+\begin{itemize}
+    \item $R_1 = 100k\Omega$, $R_2 = 10k\Omega$,
+    \item $R_1 = 100k\Omega$, $R_2 = 5.1k\Omega$,
+    \item $R_1 = 100k\Omega$, $R_2 = 2k\Omega$.\
+\end{itemize}
+
+Co ze wzoru:
+\begin{equation}
+    k_u =\frac{R_1}{R_2} + 1
+\end{equation}
+Daje nam odpowiednio wzmocnienia:
+\begin{itemize}
+    \item $k_u = 11$,
+    \item $k_u = 20.6$,
+    \item $k_u = 51$.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{R1}  & \textbf{R2}  & \textbf{100 Hz} & \textbf{500 Hz} & \textbf{1 kHz} & \textbf{3 kHz} & \textbf{5 kHz} & \textbf{8 kHz} & \textbf{10 kHz} & \textbf{15 kHz} & \textbf{20 kHz} \\ \hline
+        $100k\Omega$ & $10k\Omega$  & 10,9159         & 10,9142         & 10,9031        & 10,9006        & 10,8941        & 10,8827        & 10,8907         & 10,8628         & 10,8489         \\ \hline
+        $100k\Omega$ & $5.1k\Omega$ & 20,7601         & 20,7627         & 20,7549        & 20,7395        & 20,7314        & 20,6962        & 20,6908         & 20,588          & 20,4678         \\ \hline
+        $100k\Omega$ & $2k\Omega$   & 50,7872         & 50,7592         & 50,7613        & 50,658         & 50,4537        & 50,1147        & 49,7709         & 48,8505         & 47,5561         \\ \hline
+    \end{tabular}
+    \caption{Pomiary wzmocnienia układu przy różnych częstotliwościach}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=14cm,
+            height=8cm,
+            xlabel={Częstotliwość [Hz]},
+            ylabel={Wzmocnienie napięciowe $k_u$},
+            title={Zależność wzmocnienia od częstotliwości},
+            grid=both,
+            xmode=log,
+            log basis x=10,
+            legend style={
+                    at={(0.5,-0.2)},
+                    anchor=north,
+                    legend columns=-1,
+                    /tikz/every even column/.append style={column sep=0.5cm}
+                },
+            ymin=0,
+            ymajorgrids=true,
+            xtick={100,500,1000,3000,5000,8000,10000,15000,20000},
+            xticklabels={100,500,1k,3k,5k,8k,10k,15k,20k},
+            ]
+
+            % --- R2 = 10kΩ ---
+            \addplot[
+                thick,
+                color=blue,
+                mark=*,
+            ] coordinates {
+                    (100,10.9159)
+                    (500,10.9142)
+                    (1000,10.9031)
+                    (3000,10.9006)
+                    (5000,10.8941)
+                    (8000,10.8827)
+                    (10000,10.8907)
+                    (15000,10.8628)
+                    (20000,10.8489)
+                };
+            \addlegendentry{$R_2 = 10\,\mathrm{k}\Omega$}
+
+            % --- R2 = 5.1kΩ ---
+            \addplot[
+                thick,
+                color=red,
+                mark=square*,
+            ] coordinates {
+                    (100,20.7601)
+                    (500,20.7627)
+                    (1000,20.7549)
+                    (3000,20.7395)
+                    (5000,20.7314)
+                    (8000,20.6962)
+                    (10000,20.6908)
+                    (15000,20.588)
+                    (20000,20.4678)
+                };
+            \addlegendentry{$R_2 = 5.1\,\mathrm{k}\Omega$}
+
+            % --- R2 = 2kΩ ---
+            \addplot[
+                thick,
+                color=green!60!black,
+                mark=triangle*,
+            ] coordinates {
+                    (100,50.7872)
+                    (500,50.7592)
+                    (1000,50.7613)
+                    (3000,50.658)
+                    (5000,50.4537)
+                    (8000,50.1147)
+                    (10000,49.7709)
+                    (15000,48.8505)
+                    (20000,47.5561)
+                };
+            \addlegendentry{$R_2 = 2\,\mathrm{k}\Omega$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Zależność wzmocnienia napięciowego od częstotliwości dla układu nieodwracającego}
+\end{figure}
+
+\section{Wzmacniacz odwracający}
+\subsection{Układ wzmacniacza}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/uklad2.png}
+    \caption{Układ wzmacniacza odwracającego}
+    \label{fig:uklad2}
+\end{figure}
+
+\subsection{Pomiary}
+Do układu dobraliśmy 3 zestawy rezystorów:
+\begin{itemize}
+    \item $R_1 = 1k\Omega$, $R_2 = 10k\Omega$,
+    \item $R_1 = 10k\Omega$, $R_2 = 5k\Omega$,
+    \item $R_1 = 100k\Omega$, $R_2 = 10k\Omega$.\
+\end{itemize}
+
+Co ze wzoru:
+\begin{equation}
+    k_u = -\frac{R_1}{R_2}
+\end{equation}
+Daje nam odpowiednio wzmocnienia:
+\begin{itemize}
+    \item $k_u = -0.1$,
+    \item $k_u = -2$,
+    \item $k_u = -10$.
+\end{itemize}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{R1}  & \textbf{R2} & \textbf{100 Hz} & \textbf{500 Hz} & \textbf{1 kHz} & \textbf{3 kHz} & \textbf{5 kHz} & \textbf{8 kHz} & \textbf{10 kHz} & \textbf{15 kHz} & \textbf{20 kHz} \\ \hline
+        $1k\Omega$   & $10k\Omega$ & -0,100865       & -0,100872       & -0,10086       & -0,10088       & -0,10086       & -0,10086       & -0,10079        & -0,10088        & -0,10088        \\ \hline
+        $10k\Omega$  & $5k\Omega$  & -1,97427        & -1,9743         & -1,97436       & -1,97454       & -1,97443       & -1,97446       & -1,97453        & -1,9742         & -1,97404        \\ \hline
+        $100k\Omega$ & $10k\Omega$ & -10,0458        & -10,046         & -10,0445       & -10,0431       & -10,0414       & -10,0376       & -10,0319        & -10,0152        & -9,99514        \\ \hline
+    \end{tabular}
+    \caption{Pomiary wzmocnienia układu przy różnych częstotliwościach}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=14cm,
+            height=8cm,
+            xlabel={Częstotliwość [Hz]},
+            ylabel={Wzmocnienie napięciowe $A_u$},
+            title={Zależność wzmocnienia od częstotliwości},
+            grid=both,
+            xmode=log,
+            log basis x=10,
+            ymin=-11,
+            ymax=1,
+            ymajorgrids=true,
+            xtick={100,500,1000,3000,5000,8000,10000,15000,20000},
+            xticklabels={100,500,1k,3k,5k,8k,10k,15k,20k},
+            legend style={
+                    at={(0.5,-0.25)},
+                    anchor=north,
+                    legend columns=-1,
+                    /tikz/every even column/.append style={column sep=0.6cm}
+                },
+            ]
+
+            % --- R1 = 1kΩ, R2 = 10kΩ ---
+            \addplot[
+                thick,
+                color=blue,
+                mark=*,
+            ] coordinates {
+                    (100,-0.100865)
+                    (500,-0.100872)
+                    (1000,-0.10086)
+                    (3000,-0.10088)
+                    (5000,-0.10086)
+                    (8000,-0.10086)
+                    (10000,-0.10079)
+                    (15000,-0.10088)
+                    (20000,-0.10088)
+                };
+            \addlegendentry{$R_1 = 1\,\mathrm{k}\Omega$, $R_2 = 10\,\mathrm{k}\Omega$}
+
+            % --- R1 = 10kΩ, R2 = 5kΩ ---
+            \addplot[
+                thick,
+                color=red,
+                mark=square*,
+            ] coordinates {
+                    (100,-1.97427)
+                    (500,-1.9743)
+                    (1000,-1.97436)
+                    (3000,-1.97454)
+                    (5000,-1.97443)
+                    (8000,-1.97446)
+                    (10000,-1.97453)
+                    (15000,-1.9742)
+                    (20000,-1.97404)
+                };
+            \addlegendentry{$R_1 = 10\,\mathrm{k}\Omega$, $R_2 = 5\,\mathrm{k}\Omega$}
+
+            % --- R1 = 100kΩ, R2 = 10kΩ ---
+            \addplot[
+                thick,
+                color=green!60!black,
+                mark=triangle*,
+            ] coordinates {
+                    (100,-10.0458)
+                    (500,-10.046)
+                    (1000,-10.0445)
+                    (3000,-10.0431)
+                    (5000,-10.0414)
+                    (8000,-10.0376)
+                    (10000,-10.0319)
+                    (15000,-10.0152)
+                    (20000,-9.99514)
+                };
+            \addlegendentry{$R_1 = 100\,\mathrm{k}\Omega$, $R_2 = 10\,\mathrm{k}\Omega$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Zależność wzmocnienia napięciowego od częstotliwości dla układu odwracającego}
+\end{figure}
+
+\section{Wnioski}
+
+\subsection{Wnioski na podstawie wykresów wzmocnień}
+Możemy zauważyć stabilność wzmocnienia dla większości badanych częstotliwości dla obu
+układów. Wykresy są niemal idealnie płaskie, co oznacza, że wzmocnienie nie zmienia się
+znacząco wraz ze zmianą częstotliwości sygnału wejściowego. \\
+Dla układu nieodwracającego wzmocnienie zaczyna lekko spadać przy wyższych częstotliwościach (od około 8 kHz),
+szczególnie dla największego wzmocnienia $k_u=51$.
+
+\subsection{Ogólne}
+Ćwiczenie pozwoliło nam precyzyjnie kontrolować wzmocnienie sygnału odpowiednimi
+rezystorami, a następnie obserwować jego rzeczywistą wartość. Zaobserwowaliśmy również
+ograniczone pasmo przenoszenia wzmacniacza operacyjnego. W praktyce oznacza to, że przy
+bardzo wysokich częstotliwościach wzmocnienie może ulec znacznemu obniżeniu.
+
+\end{document}
