@@ -1,0 +1,247 @@
+\documentclass[12pt,a4paper]{article}
+
+% Polskie znaki i język
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{polski}
+
+% Matematyka
+\usepackage{amsmath, amssymb, amsfonts, mathtools}
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+
+% Grafika i wykresy
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+
+% Marginesy
+\usepackage{geometry}
+\geometry{ a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm }
+
+% Linki i odnośniki
+\usepackage{hyperref}
+\hypersetup{ colorlinks=true, linkcolor=black, filecolor=magenta,      
+    urlcolor=blue, pdftitle={Sprawozdanie nr 2}, }
+
+% Kod źródłowy
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definicja kolorów
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Konfiguracja stylu dla Pythona
+\lstdefinestyle{mystyle}{ backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false, showtabs=false,                  
+    tabsize=2, literate={ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+    {ó}{{\'o}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1 {Ą}{{\k{A}}}1 {Ć}{{\'C}}1
+    {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1 {Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
+    }
+\lstset{style=mystyle}
+
+% Nagłówki i stopki
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Piotr Bednarek}
+\lhead{Układy sterowania optymalnego}
+\cfoot{\thepage}
+
+% Tytuł i autor
+\title{Sprawozdanie nr 2\\ \large Układy sterowania optymalnego}
+\author{Piotr Bednarek}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%% =============================================================================
+%% ĆWICZENIE 10-11: Linearyzacja układów nieliniowych
+%% =============================================================================
+
+\section{Ćwiczenie 10-11: Linearyzacja układów nieliniowych}
+
+\subsection{Linearyzacja względem punktu $x_0=(0,0), u_0=0$}
+
+% TODO: Wykres porównujący przebieg pierwszej zmiennej stanu dla układu 
+% nieliniowego oraz zlinearyzowanego względem punktu x_0=(0,0), u_0=0
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{img/linearyzacja_00.png}
+    \caption{Porównanie przebiegów pierwszej zmiennej stanu dla układu nieliniowego
+        oraz zlinearyzowanego względem punktu $x_0=(0,0), u_0=0$}
+    \label{fig:linearyzacja_00}
+\end{figure}
+
+\textbf{Komentarz do wyników:}
+% TODO: Skomentować uzyskane wyniki
+
+\textbf{Sterowalność układu zlinearyzowanego:}
+% TODO: Podać czy układ zlinearyzowany jest sterowalny oraz jaką metodę 
+% badania sterowalności wykorzystano
+
+\subsection{Linearyzacja względem punktu $x_0=(\pi/4, 0), u_0=45\sqrt{2}$}
+
+Postać zlinearyzowanego układu względem punktu $x_0=(\pi/4, 0), u_0=45\sqrt{2}$:
+
+% TODO: Podać postać zlinearyzowanego układu (macierze A, B)
+\begin{equation}
+    \begin{cases}
+        \dot{x} = A x + B u \\
+        A = \begin{bmatrix}
+                \cdot & \cdot \\
+                \cdot & \cdot
+            \end{bmatrix}, \quad
+        B = \begin{bmatrix}
+                \cdot \\
+                \cdot
+            \end{bmatrix}
+    \end{cases}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{img/linearyzacja_pi4.png}
+    \caption{Porównanie przebiegów pierwszej zmiennej stanu dla układu nieliniowego
+        oraz zlinearyzowanego dla dwóch wartości stałego wymuszenia}
+    \label{fig:linearyzacja_pi4}
+\end{figure}
+
+\textbf{Odpowiedzi na pytania z zadania 5.2:}
+% TODO: Odpowiedzieć na pytania z zadania 5.2
+
+\subsection{Linearyzacja metodą SDC (zadanie 5.3)}
+
+\begin{lstlisting}[language=Python, caption=Kod do zadania 5.3 - linearyzacja metodą SDC]
+# TODO: Zamieścić kod do zadania 5.3
+\end{lstlisting}
+
+\textbf{Komentarz do wyników dla linearyzacji metodą SDC:}
+% TODO: Skomentować uzyskane wyniki dla linearyzacji metodą SDC
+
+\textbf{Potencjalne ograniczenia metody SDC:}
+% TODO: Jakie są potencjalne ograniczenia metody SDC?
+
+\newpage
+
+%% =============================================================================
+%% ĆWICZENIE 12: Regulator LQR dla wahadła
+%% =============================================================================
+
+\section{Ćwiczenie 12: Regulator LQR dla wahadła}
+
+\subsection{Linearyzacja wahadła względem $x_0=(\pi, 0), u_0=0$}
+
+Postać zlinearyzowanego układu wahadła względem punktu $x_0=(\pi, 0), u_0=0$:
+
+% TODO: Podać postać zlinearyzowanego układu wahadła (macierze A, B)
+\begin{equation}
+    \begin{cases}
+        \dot{x} = A x + B u \\
+        A = \begin{bmatrix}
+                \cdot & \cdot \\
+                \cdot & \cdot
+            \end{bmatrix}, \quad
+        B = \begin{bmatrix}
+                \cdot \\
+                \cdot
+            \end{bmatrix}
+    \end{cases}
+\end{equation}
+
+\textbf{Dlaczego zmienne stanu liniowej aproksymacji wahadła dążą do nieskończoności
+    przy pobudzeniu skokiem jednostkowym?}
+% TODO: Odpowiedź na pytanie z zadania 2.1
+
+\subsection{Regulator LQR dla wahadła}
+
+Wyznaczone wartości wzmocnień $K$ regulatora LQR:
+% TODO: Podać wyznaczone wartości wzmocnień K regulatora LQR
+\begin{equation}
+    K = \begin{bmatrix}
+        \cdot & \cdot
+    \end{bmatrix}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{img/lqr_wahadlo_warunki.png}
+    \caption{Przebiegi pierwszej zmiennej stanu układu zamkniętego dla różnych
+        warunków początkowych}
+    \label{fig:lqr_wahadlo_warunki}
+\end{figure}
+
+\textbf{Czy wykorzystane rozwiązanie jest globalne?}
+% TODO: Skomentować czy wykorzystane rozwiązanie jest globalne
+
+\subsection{Wykres z zadania 3.4}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{img/zad_3_4.png}
+    \caption{Wykres z zadania 3.4}
+    \label{fig:zad_3_4}
+\end{figure}
+
+\textbf{Odpowiedzi na pytania z zadania 3.4:}
+% TODO: Odpowiedzieć na postawione pytania z zadania 3.4
+
+\textbf{Komentarz do wyników:}
+% TODO: Skomentować uzyskane wyniki
+
+\newpage
+
+%% =============================================================================
+%% ĆWICZENIE 13: Parametryzacja SDC dla wahadła
+%% =============================================================================
+
+\section{Ćwiczenie 13: Parametryzacja SDC dla wahadła}
+
+\subsection{Propozycja parametryzacji SDC dla wahadła}
+
+% TODO: Zaproponować parametryzację SDC dla wahadła
+% Opisać zaproponowaną parametryzację
+
+\textbf{Odpowiedzi na pytania z zadania 2.2:}
+% TODO: Odpowiedzieć na pytania z zadania 2.2
+
+\subsection{Wykresy z zadania 2.4}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{img/sdc_wahadlo_1.png}
+    \caption{Wyniki z zadania 2.4 - część 1}
+    \label{fig:sdc_wahadlo_1}
+\end{figure}
+
+% Jeśli potrzebne więcej wykresów:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\textwidth]{img/sdc_wahadlo_2.png}
+%     \caption{Wyniki z zadania 2.4 - część 2}
+%     \label{fig:sdc_wahadlo_2}
+% \end{figure}
+
+\textbf{Komentarz do wyników:}
+% TODO: Skomentować uzyskane wyniki z zadania 2.4
+
+\end{document}
