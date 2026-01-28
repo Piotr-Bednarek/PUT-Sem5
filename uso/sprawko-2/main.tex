@@ -22,8 +22,7 @@
 
 % Linki i odnośniki
 \usepackage{hyperref}
-\hypersetup{ colorlinks=true, linkcolor=black, filecolor=magenta,      
-    urlcolor=blue, pdftitle={Sprawozdanie nr 2}, }
+\hypersetup{colorlinks=true, linkcolor=black, filecolor=magenta, urlcolor=blue, pdftitle={Sprawozdanie nr 2}}
 
 % Kod źródłowy
 \usepackage{listings}
@@ -36,28 +35,31 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 % Konfiguracja stylu dla Pythona
-\lstdefinestyle{mystyle}{ backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen}, keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray}, stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false, showtabs=false,                  
-    tabsize=2, literate={ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
-    {ó}{{\'o}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1 {Ą}{{\k{A}}}1 {Ć}{{\'C}}1
-    {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1 {Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
-    }
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
 \lstset{style=mystyle}
 
 % Nagłówki i stopki
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
+\setlength{\headheight}{15pt}
 \rhead{Piotr Bednarek}
 \lhead{Układy sterowania optymalnego}
 \cfoot{\thepage}
@@ -110,41 +112,33 @@ gdzie $A_{21} = -\frac{mgl}{J} = -90$ oraz $A_{22} = -\frac{d}{J} = -0.5$.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{duze-wymuszenie.png}
-  \caption{Porównanie dla dużego wymuszenia ($u = 70$) - model liniowy eksploduje do nieskończoności,
-    podczas gdy model nieliniowy pozostaje stabilny}
+  \caption{Porównanie dla dużego wymuszenia ($u = 70$) – odpowiedź modelu liniowego rośnie w sposób nieograniczony, podczas gdy model nieliniowy pozostaje stabilny}
   \label{fig:linearyzacja_duze}
 \end{figure}
 
 \textbf{Komentarz do wyników:}
 
-Na wykresach przedstawiono odpowiedź pierwszej zmiennej stanu (kąt $\theta$) dla układu nieliniowego
-(linie ciągłe) oraz zlinearyzowanego (linie przerywane) względem punktu równowagi $x_0=(0,0)$, $u_0=0$.
-Wykresy jednoznacznie pokazują lokalny charakter linearyzacji:
+Na wykresach pokazano odpowiedź kąta $\theta$ dla układu nieliniowego (linie ciągłe) i zlinearyzowanego (linie przerywane) przy punkcie równowagi $x_0=(0,0)$, $u_0=0$. Wykresy dobrze pokazują, że linearyzacja działa tylko lokalnie:
 
 \begin{itemize}
-  \item \textbf{Małe wymuszenia} ($u = 0, 5, 20$): Model liniowy wiernie odzwierciedla zachowanie
-        nieliniowego obiektu. Przebiegi obu modeli są niemal identyczne, co potwierdza prawidłowość
-        linearyzacji w okolicy punktu równowagi.
+  \item \textbf{Małe wymuszenia} ($u = 0, 5, 20$): Model liniowy bardzo dobrze odzwierciedla model nieliniowy. Przebiegi są prawie identyczne, co potwierdza, że linearyzacja daje poprawne wyniki w otoczeniu punktu równowagi.
 
-  \item \textbf{Średnie wymuszenie} ($u = 45\sqrt{2} \approx 63.6$): Pojawiają się niewielkie różnice w amplitudach
-        i wartościach ustalonych. Model liniowy nadal zachowuje ogólny charakter odpowiedzi, ale dokładność
-        się pogarsza wraz z oddalaniem od punktu linearyzacji.
+  \item \textbf{Średnie wymuszenie} ($u = 45\sqrt{2} \approx 63.6$): Pojawiają się małe różnice w amplitudach
+        i wartościach ustalonych. Model liniowy nadal odwzorowuje charakter odpowiedzi, ale dokładność
+        spada wraz z oddalaniem się od punktu linearyzacji.
 
-  \item \textbf{Duże wymuszenie} ($u = 70$): Model zlinearyzowany nie odzwierciedla zachowania
-        nieliniowego obiektu. Liniowy eksploduje do dużych wartości, podczas gdy nieliniowy
-        pozostaje stabilny z oscylacjami tłumionymi. To potwierdza, że linearyzacja jest wiarygodna
-        tylko lokalnie - dla małych odchyleń od punktu równowagi.
+  \item \textbf{Duże wymuszenie} ($u = 70$): Model liniowy nie pasuje do nieliniowego.
+        Odpowiedź układu liniowego rośnie w sposób nieograniczony, podczas gdy nieliniowy zachowuje stabilne oscylacje. Świadczy to o tym, że aproksymacja liniowa jest poprawna jedynie w pobliżu punktu pracy.
 \end{itemize}
 
-\textbf{Interpretacja wartości wymuszenia:}
+\textbf{Interpretacja wymuszenia:}
 
-Wymuszenie $u$ reprezentuje moment siły działający na wahadło. Punkt równowagi $u_0 = 0$ odpowiada
-stanowi, w którym wahadło wisi pionowo w dół ($\theta = 0$). Im większe wymuszenie, tym większe
-wychylenie wahadła od pozycji równowagi. \\
+Wymuszenie $u$ to moment siły działający na wahadło. Punkt równowagi $u_0 = 0$ oznacza,
+że wahadło wisi pionowo w dół ($\theta = 0$). Większa wartość $u$ odpowiada większemu wychyleniu ustalonemu. \\
 
-\textbf{Sterowalność układu zlinearyzowanego:}
+\textbf{Sterowalność układu:}
 
-Układ jest sterowalny. Do badania sterowalności wykorzystano macierz sterowalności:
+Układ jest sterowalny. Sprawdzono to wyznaczając macierz sterowalności:
 
 \begin{equation}
   \mathcal{S} = [B \quad AB] = \begin{bmatrix}
@@ -153,7 +147,7 @@ Układ jest sterowalny. Do badania sterowalności wykorzystano macierz sterowaln
   \end{bmatrix}
 \end{equation}
 
-Wyznacznik macierzy sterowalności: $\det(\mathcal{S}) = 0 \cdot (-0.5) - 1 \cdot 1 = -1 \neq 0$
+Wyznacznik: $\det(\mathcal{S}) = 0 \cdot (-0.5) - 1 \cdot 1 = -1 \neq 0$.
 
 Ponieważ $\text{rank}(\mathcal{S}) = 2 = n$ (wymiar układu), układ jest w pełni sterowalny.
 
@@ -196,71 +190,62 @@ $$A_{21} = -\frac{mgl \cos(\theta_0)}{J} = -\frac{90 \cdot \cos(\pi/4)}{1} = -90
 
 \textbf{1) Jaka jest fizyczna interpretacja tego punktu równowagi?}
 
-Punkt równowagi $x_0 = (\pi/4, 0)$ z $u_0 = 45\sqrt{2}$ odpowiada stanowi, w którym wahadło jest odchylone
-o $45°$ od pionu (w dół) i pozostaje w spoczynku ($\dot{\theta} = 0$). Aby utrzymać wahadło w tej pozycji,
-konieczne jest przyłożenie stałego momentu siły $u_0 = 45\sqrt{2} \approx 63.64$ [N$\cdot$m].
+Punkt równowagi $x_0 = (\pi/4, 0)$ z $u_0 = 45\sqrt{2}$ oznacza, że wahadło jest odchylone
+o $45^\circ$ od pionu (w dół) i spoczywa nieruchomo ($\dot{\theta} = 0$). Utrzymanie w tej pozycji
+wymaga przykładania stałego momentu siły $u_0 = 45\sqrt{2} \approx 63.64$ [N$\cdot$m].
 
-Moment ten równoważy składową grawitacji dążącą do powrotu wahadła do pozycji pionowej w dół:
+Moment ten równoważy grawitację dążącą do powrotu wahadła do pionu:
 $$u_0 = mgl\sin(\pi/4) = 9 \cdot 10 \cdot 1 \cdot \frac{\sqrt{2}}{2} = 45\sqrt{2}$$
 
-Jest to niestabilny punkt równowagi -- każde odchylenie wymaga skorygowania momentu $u$.
+Jest to niestabilny punkt równowagi, co oznacza, że każde odchylenie wymaga korekty sterowania.
 
-\textbf{2) Dlaczego w niektórych przypadkach odpowiedź układu nie zmienia się w czasie?}
+\textbf{2) Dlaczego czasami odpowiedź się nie zmienia?}
 
-Dla wymuszenia $u = u_0 = 45\sqrt{2}$ układ znajduje się dokładnie w punkcie równowagi.
-Żadna siła wypadkowa nie działa na układ, zatem $\dot{\theta} = 0$ i $\ddot{\theta} = 0$.
-Wahadło pozostaje w pozycji $\theta = \pi/4$ przez cały czas symulacji (zarówno w modelu
-nieliniowym, jak i liniowym).
+Kiedy $u = u_0 = 45\sqrt{2}$, układ znajduje się w stanie równowagi.
+Wypadkowa sił działających na układ wynosi zero, zatem $\dot{\theta} = 0$ i $\ddot{\theta} = 0$.
+Wahadło pozostaje w pozycji $\theta = \pi/4$ (zarówno w modelu nieliniowym, jak i liniowym).
 
-Dla pozostałych wymuszeń ($u \neq u_0$) pojawia się niezerowa siła wypadkowa, co powoduje
-ruch wahadła.
+Gdy $u \neq u_0$, równowaga zostaje zachwiana i wahadło zaczyna się poruszać.
 
-\textbf{3) Czy odpowiedzi obu układów się pokrywają? Dlaczego?}
+\textbf{3) Czy odpowiedzi obu układów się pokrywają?}
 
 \begin{itemize}
-  \item Dla $u = u_0$ (równowaga): Odpowiedzi są identyczne -- obie wynoszą
-        stale $\theta = \pi/4$. To oczywiste, gdyż oba układy znajdują się w punkcie równowagi.
-        Żadna siła wypadkowa nie działa, więc kąt pozostaje stały.
+  \item Dla $u = u_0$ (równowaga): Odpowiedzi są identyczne -- stała wartość $\theta = \pi/4$.
+        Wynika to bezpośrednio z definicji punktu równowagi.
 
-  \item Dla $u = u_0 + 10$ (średnie odchylenie): Odpowiedzi pokrywają się dobrze,
-        ale widoczne są niewielkie różnice. Model liniowy wiernie przybliża zachowanie nieliniowe
-        w okolicy punktu równowagi -- obie odpowiedzi oscylują wokół wartości ustalonej około
-        $0.96$ rad. Linearyzacja zachowuje się poprawnie dla tego stosunkowo niewielkiego odchylenia
-        od punktu równowagi ($\Delta u = 10$ względem $u_0 \approx 63.64$, czyli około 16\%).
+  \item Dla $u = u_0 + 10$ (średnie odchylenie): Odpowiedzi są zbliżone, choć widoczne są niewielkie różnice.
+        Model liniowy poprawnie przybliża dynamikę nieliniową w otoczeniu punktu pracy -- oba układy oscylują wokół nowej wartości ustalonej. Linearyzacja sprawdza się dla tego rzędu odchylenia ($\Delta u = 10$ względem $u_0 \approx 63.64$, czyli ok. 16\%).
 \end{itemize}
 
+\newpage
 \textbf{Wnioski:}
 
-Linearyzacja względem punktu $x_0 = (\pi/4, 0)$, $u_0 = 45\sqrt{2}$ jest poprawna lokalnie -- w okolicy
-punktu równowagi. Dla wymuszeń bliskich $u_0$ oba modele dają zbieżne wyniki. Wykres pokazuje, że
-linearyzacja działa dobrze nawet dla średnich odchyleń (16\% zmiany wymuszenia), co potwierdza jej
-przydatność do analizy i projektowania układów sterowania w ograniczonym obszarze pracy.
+Linearyzacja względem punktu $x_0 = (\pi/4, 0)$, $u_0 = 45\sqrt{2}$ jest skuteczna lokalnie. Dla wymuszeń bliskich $u_0$ oba modele dają zbieżne wyniki. Wykresy potwierdzają, że model liniowy jest przydatny do analizy i syntezy sterowania w ograniczonym obszarze wokół punktu pracy.
 
 \subsection{Linearyzacja metodą SDC (zadanie 5.3)}
 
-Metoda SDC (State-Dependent Coefficient) polega na zapisaniu układu nieliniowego w postaci
-liniowej zależnej od stanu:
+Metoda SDC (State-Dependent Coefficient) polega na zapisaniu układu nieliniowego w postaci pseudo-liniowej zależnej od stanu:
 \begin{equation}
   \dot{x} = A(x)x + B(x)u
 \end{equation}
 
-\begin{lstlisting}[language=Python, caption=Funkcja implementująca model SDC wahadła]
+\begin{lstlisting}[language=Python, caption=Funkcja implementujaca model SDC wahadla]
 def wahadlo_sdc(x, t, u):
-    kat = x[0]
-    predkosc = x[1]
-    
-    if np.abs(kat) < 1e-10:
-        sin = 1.0
-    else:
-        sin = np.sin(kat) / kat
-    
-    A = np.array([[0, 1],
-                  [-m*g*l/J * sin, -d/J]])
-    B = np.array([[0], [1/J]])
-    
-    dxdt = A @ np.array([[kat], [predkosc]]) + B * u
-    
-    return dxdt.flatten()
+  kat = x[0]
+  predkosc = x[1]
+
+  if np.abs(kat) < 1e-10:
+    sin = 1.0
+  else:
+    sin = np.sin(kat) / kat
+  
+  A = np.array([[0, 1],
+                [-m*g*l/J * sin, -d/J]])
+  B = np.array([[0], [1/J]])
+  
+  dxdt = A @ np.array([[kat], [predkosc]]) + B * u
+  
+  return dxdt.flatten()
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -279,45 +264,25 @@ def wahadlo_sdc(x, t, u):
   \label{fig:sdc_test2}
 \end{figure}
 
-\textbf{Komentarz do wyników dla linearyzacji metodą SDC:}
+\textbf{Komentarz do wyników SDC:}
 
-Wyniki jednoznacznie pokazują, że metoda SDC dokładnie reprodukuje zachowanie oryginalnego
-układu nieliniowego. Przebiegi są praktycznie identyczne -- różnice są na poziomie błędów
-numerycznych
+Metoda SDC bardzo dokładnie odtwarza zachowanie oryginalnego układu nieliniowego. Uzyskane przebiegi są niemal identyczne, a obserwowane różnice wynikają wyłącznie z błędów numerycznych. Dla warunku początkowego $x_1(0) = \pi/4$ model SDC wiernie odwzorowuje tłumione oscylacje wahadła.
 
-Dla warunku początkowego $x_1(0) = \pi/4$ wahadło wykonuje tłumione oscylacje wokół pozycji
-równowagi $\theta = 0$, a układ SDC wiernie odtwarza tę dynamikę. Dla $x_1(0) = 0$ oba układy
-pozostają w punkcie równowagi.
+Kluczowym elementem implementacji jest obsługa punktu osobliwego $x_1 = 0$. W kodzie zastosowano warunek $|x_1| < \epsilon$, przyjmując w tym punkcie wartość graniczną $\lim_{x_1 \to 0} \frac{\sin(x_1)}{x_1} = 1$.
 
-Istotna jest prawidłowa obsługa punktu osobliwego $x_1 = 0$. Implementacja wykorzystuje
-warunek $|x_1| < \epsilon$, który zwraca wartość graniczną $\lim_{x_1 \to 0} \frac{\sin(x_1)}{x_1} = 1$.
-\newpage
 \textbf{Potencjalne ograniczenia metody SDC:}
 
 \textbf{Ograniczenia teoretyczne:}
-\begin{itemize}
-  \item Nie każdy układ nieliniowy można zapisać w formie SDC -- wymaga to odpowiedniej
-        struktury równań
-  \item Macierze $A(x)$ i $B(x)$ muszą być funkcjami gładkimi (ciągłe i różniczkowalne)
-  \item Współczynniki macierzy muszą pozostać ograniczone dla wszystkich możliwych stanów $x$
-  \item Brak jednoznaczności -- ten sam układ nieliniowy może mieć wiele różnych reprezentacji SDC
-\end{itemize}
+
+Nie każdy układ nieliniowy można zapisać w formie SDC -- równania stanu muszą posiadać odpowiednią strukturę (faktoryzowalność nieliniowości). Macierze $A(x)$ i $B(x)$ powinny być funkcjami gładkimi i ograniczonymi w przestrzeni stanów. Istotną cechą metody jest niejednoznaczność reprezentacji -- ten sam układ może być opisany różnymi parametryzacjami macierzy SDC, co wpływa na sterowalność modelu.
 
 \textbf{Ograniczenia implementacyjne:}
-\begin{itemize}
-  \item Potencjalne problemy numeryczne w punktach osobliwych (np. dzielenie przez zero)
-  \item Konieczność obsługi wartości granicznych funkcji (np. $\lim_{x \to 0} \frac{\sin(x)}{x}$)
-  \item Większe koszty obliczeniowe -- macierze $A(x)$ i $B(x)$ muszą być obliczane w każdym
-        kroku całkowania (w przeciwieństwie do stałych macierzy w linearyzacji Jakobianowskiej)
-  \item Wymaga starannej implementacji dla zapewnienia stabilności i dokładności numerycznej
-\end{itemize}
 
-\textbf{Przyczyna błędu/ostrzeżenia dla $x_1(0) = 0$:}
+Podstawowym problemem są punkty osobliwe, takie jak $x=0$ w przypadku wahadła, gdzie występuje dzielenie przez zero. Wymaga to jawnej obsługi wartości granicznych. Metoda jest również bardziej kosztowna obliczeniowo niż klasyczna linearyzacja, ponieważ macierze stanu są aktualizowane w każdym kroku całkowania. Należy też zadbać o stabilność numeryczną solvera przy szybkich zmianach stanu.
 
-W punkcie $x_1 = 0$ pojawia się dzielenie przez zero w wyrażeniu $\frac{\sin(x_1)}{x_1}$.
-Matematycznie $\lim_{x_1 \to 0} \frac{\sin(x_1)}{x_1} = 1$, ale bez specjalnej obsługi
-solver numeryczny wygenerowałby ostrzeżenie dzielenia przez zero. Implementacja rozwiązuje ten problem przez sprawdzenie
-warunku $|x_1| < 10^{-10}$ i zwrócenie wartości $1.0$ dla małych $x_1$.
+\textbf{Dlaczego może być błąd dla $x_1(0) = 0$?}
+
+W punkcie $x_1 = 0$ wprost z równania wynikałoby dzielenie przez zero w członie $\frac{\sin(x_1)}{x_1}$. Choć granica tej funkcji wynosi 1, solver numeryczny bez odpowiedniego zabezpieczenia zwróciłby błąd (NaN). W implementacji rozwiązano to programowo, podstawiając wartość 1.0 dla bardzo małych kątów.
 
 \newpage
 
@@ -345,42 +310,34 @@ Postać zlinearyzowanego układu wahadła względem punktu $x_0=(\pi, 0), u_0=0$
   \end{cases}
 \end{equation}
 
-\textbf{Dlaczego zmienne stanu liniowej aproksymacji wahadła dążą do nieskończoności
-  przy pobudzeniu skokiem jednostkowym?}
+\textbf{Dlaczego układ linearny jest niestabilny?}
 
-Układ zlinearyzowany względem punktu $x_0 = (\pi, 0)$ jest niestabilny. Punkt ten
-odpowiada pozycji wahadła skierowanego pionowo w górę (pozycja odwrócona), co stanowi
-niestabilny punkt równowagi. Wyznaczając wartości własne macierzy $A$:
+Punkt $x_0 = (\pi, 0)$ odpowiada pozycji odwróconej (wahadło pionowo w górę), co jest fizycznie niestabilnym punktem równowagi. Analiza wartości własnych macierzy $A$:
 
 $$\det(\lambda I - A) = \lambda(\lambda + 0.5) - 90 = \lambda^2 + 0.5\lambda - 90 = 0$$
 
-otrzymujemy:
-$$\lambda_{1,2} = \frac{-0.5 \pm \sqrt{0.25 + 360}}{2} = \frac{-0.5 \pm 18.98}{2}$$
+prowadzi do pierwiastków:
+$$\lambda_{1,2} = \frac{-0.5 \pm \sqrt{0.25 + 360}}{2} \approx \frac{-0.5 \pm 18.98}{2}$$
 
-co daje: $\lambda_1 \approx 9.24$ (niestabilny biegun) oraz $\lambda_2 \approx -9.74$ (stabilny).
-
-Obecność wartości własnej o dodatniej części rzeczywistej ($\lambda_1 > 0$) powoduje,
-że odpowiedź układu rośnie wykładniczo w czasie, dążąc do nieskończoności. Fizycznie
-oznacza to, że wahadło w pozycji odwróconej jest niestabilne -- każde najmniejsze
-odchylenie (w tym wymuszenie skokowe) powoduje jego upadek. Model liniowy odzwierciedla
-tę niestabilność.
+Stąd $\lambda_1 \approx 9.24$ (biegun niestabilny) oraz $\lambda_2 \approx -9.74$ (stabilny).
+Dodatnia wartość własna oznacza, że odpowiedź układu liniowego na jakiekolwiek wymuszenie (np. skok) będzie rosła w sposób nieograniczony, co odzwierciedla niestabilność fizycznego obiektu.
 
 \subsection{Regulator LQR dla wahadła}
 
 Dla układu zlinearyzowanego wokół punktu $x_0 = (\pi, 0)$, $u_0 = 0$ zaprojektowano regulator
-LQR z nieskończonym horyzontem czasowym. Przyjęto macierze wag:
+LQR z nieskończonym horyzontem czasowym. Macierze wag przyjęto jako:
 
 $$Q = I_2 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad R = 1$$
 
-Wyznaczone wartości wzmocnień $K$ regulatora LQR:
+Wyznaczone wzmocnienia regulatora $K$:
 \begin{equation}
   K = \begin{bmatrix}
-    9.49 & 3.16
+    176.5 & 18.3
   \end{bmatrix}
 \end{equation}
 
-Prawo sterowania dla układu nieliniowego ma postać:
-$$u = -K(x - x_0) + u_0 = -9.49(\theta - \pi) - 3.16\dot{\theta}$$
+Prawo sterowania dla układu nieliniowego:
+$$u = -K(x - x_0) + u_0$$
 
 \begin{figure}[H]
   \centering
@@ -391,52 +348,35 @@ $$u = -K(x - x_0) + u_0 = -9.49(\theta - \pi) - 3.16\dot{\theta}$$
   \label{fig:lqr_wahadlo_warunki}
 \end{figure}
 
-\textbf{Czy wykorzystane rozwiązanie jest globalne?}
+\textbf{Czy to rozwiązanie jest globalne?}
 
-Nie, rozwiązanie jest lokalne -- regulator LQR zaprojektowany na podstawie liniowej aproksymacji
-wokół punktu $(\pi, 0)$ gwarantuje stabilność tylko w pewnym obszarze przyciągania wokół punktu równowagi.
+Nie, rozwiązanie jest lokalne. Regulator LQR, zaprojektowany na podstawie liniowej aproksymacji wokół punktu $(\pi, 0)$, stabilizuje nieliniowy układ tylko w pewnym otoczeniu tego punktu.
 
-\textbf{Analiza wyników symulacji:}
+\textbf{Analiza wyników:}
 
 \begin{itemize}
   \item Małe odchylenia ($\theta_0 = \pi - 0.1$, $\pi - 0.3$, $\pi - 0.5$):
-        Regulator skutecznie stabilizuje wahadło w pozycji odwróconej.
-        Układ dąży asymptotycznie do punktu równowagi: $\theta \to \pi$, $\dot{\theta} \to 0$.
-        Linearyzacja jest wystarczająco dokładna w tym obszarze.
+        W symulacji regulator skutecznie stabilizuje wahadło w pozycji odwróconej. Układ asymptotycznie zmierza do punktu równowagi: $\theta \to \pi$, $\dot{\theta} \to 0$.
 
   \item Duże odchylenia ($\theta_0 = \pi/2$, $\theta_0 = 0$):
-        Regulator traci skuteczność. Wahadło pada w dół i ustala się w pozycji dolnej
-        ($\theta \approx 0$) lub wykonuje oscylacje. Nieliniowość układu dominuje, a model liniowy
-        nie opisuje już poprawnie rzeczywistej dynamiki.
+        Dla dużych odchyleń początkowych regulator nie jest w stanie ustabilizować obiektu. Wahadło opada do pozycji dolnej ($\theta \approx 0$) lub wykonuje ruch oscylacyjny. Wskazuje to, że dla takich wychyleń model liniowy, na podstawie którego wyznaczono wzmocnienia $K$, zbyt mocno odbiega od rzeczywistej dynamiki nieliniowej.
 \end{itemize}
 
-\textbf{Przyczyny lokalności rozwiązania:}
+\textbf{Dlaczego rozwiązanie jest tylko lokalne:}
 
-\begin{enumerate}
-  \item Lokalność linearyzacji: Model liniowy jest dokładny tylko w małym obszarze
-        wokół punktu $(\pi, 0)$. Im większe odchylenie, tym większy błąd aproksymacji.
-
-  \item Ograniczony obszar przyciągania: Dla $|\theta - \pi| > \sim 0.5$ rad
-        (około $30°$) regulator przestaje działać poprawnie.
-
-  \item Natura problemu: Stabilizacja wahadła odwróconego to trudne zadanie sterowania.
-        Globalnie stabilne rozwiązanie wymaga nieliniowych metod (np. sterowanie ślizgowe,
-        backstepping, sterowanie adaptacyjne).
-\end{enumerate}
+Linearyzacja modelu jest poprawna jedynie w niewielkim otoczeniu punktu pracy $(\pi, 0)$. Im większe odchylenie od pionu, tym większy błąd aproksymacji (wpływ nieliniowości $\sin \theta$). Z wykresów wynika, że obszar przyciągania regulatora wynosi około $|\theta - \pi| \approx 0.5$ rad ($30°$). Stabilizacja globalna wahadła odwróconego wymagałaby zastosowania nieliniowych algorytmów sterowania.
 
 \textbf{Wnioski:}
 
-Regulator LQR dla nieliniowego wahadła zapewnia jedynie lokalne przybliżenie optymalnego
-sterowania. Jest skuteczny w okolicy punktu równowagi, ale nie gwarantuje stabilności globalnej.
-To typowe ograniczenie metod opartych na linearyzacji -- efektywność tylko w ograniczonym
-obszarze przestrzeni stanów.
+Liniowy regulator kwadratowy (LQR) zastosowany do obiektu nieliniowego zapewnia stabilizację jedynie lokalnie. Jest to typowe ograniczenie metod projektowania opartych na linearyzacji w punkcie pracy.
 
+\newpage
 \subsection{Wykres z zadania 3.4}
 
-Zbadano manipulator z regulatorem LQR:
+Zbadano manipulator z regulatorem LQR w dwóch wariantach:
 \begin{itemize}
-  \item regulator z nieskończonym horyzontem (ARE),
-  \item regulator ze skończonym horyzontem (równanie Riccatiego rozwiązywane wstecz na przedziale $[0, t_1]$).
+  \item regulator z nieskończonym horyzontem czasowym (rozwiązanie algebraicznego równania Riccatiego - ARE),
+  \item regulator ze skończonym horyzontem (równanie różniczkowe Riccatiego rozwiązywane wstecz na przedziale $[0, t_1]$).
 \end{itemize}
 Parametry: $J_1=J_2=0.5$, $k=100$, $c=1$, wagi $Q=I_4$, $R=1$, warunki początkowe $x(0) = [\pi,\ 0,\ \pi/2,\ 0]^T$.
 
@@ -450,28 +390,28 @@ Parametry: $J_1=J_2=0.5$, $k=100$, $c=1$, wagi $Q=I_4$, $R=1$, warunki początko
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{lqr-manip-15s.png}
-  \caption{Manipulator, $t_1=1.5$ s: skrócony horyzont pogarsza zbieżność dla regulatora skończonego; LQR nieskończony nadal dąży do zera.}
+  \caption{Manipulator, $t_1=1.5$ s: skrócony horyzont pogarsza jakość regulacji skończonej; LQR nieskończony nadal dąży do zera.}
   \label{fig:lqr_manip_15s}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{lqr-manip-S-sweep.png}
-  \caption{Wpływ macierzy końcowej $S$ dla horyzontu $t_1=1.5$ s: zwiększenie $S$ poprawia szybkość zbieżności regulatora skończonego (najlepiej $S=100I$); dla $x_1$ przebiegi z $S=10I$ i $100I$ niemal pokrywają się z regulatorem nieskończonym, $x_3$ poprawia się tylko nieznacznie.}
+  \caption{Wpływ macierzy końcowej $S$ dla horyzontu $t_1=1.5$ s: zwiększenie kar $S$ poprawia zbieżność regulatora skończonego. Dla $S=100I$ przebiegi zbliżają się do rozwiązania z horyzontem nieskończonym.}
   \label{fig:lqr_manip_S}
 \end{figure}
 
 \textbf{Odpowiedzi na pytania:}
 
 \begin{enumerate}
-  \item \textbf{Czy zadanie stabilizacji układu realizowane jest poprawnie dla obu regulatorów LQR?}
-        Dla $t_1=5$ s tak: oba regulatory stabilizują układ, a przebiegi są praktycznie zbieżne.
+  \item \textbf{Czy oba regulatory LQR stabilizują układ?}
+        Dla długiego horyzontu ($t_1=5$ s) tak. Oba regulatory skutecznie stabilizują układ, a ich przebiegi są niemal identyczne.
 
-  \item \textbf{Czy zmienne stanu zbiegają do zera po skróceniu horyzontu do $t_1=1.5$ s?}
-        W horyzoncie $1.5$ s \emph{żaden} regulator nie osiąga dokładnie zera: LQR nieskończony zmniejsza stany, ale w zadanym czasie zostaje spory uchyb; LQR skończony z $t_1=1.5$ s zostawia większy uchyb na $x_1$ i $x_3$.
+  \item \textbf{Czy zmienne zbiegają do zera po skróceniu horyzontu do $t_1=1.5$ s?}
+        W tak krótkim czasie żaden z regulatorów nie sprowadza stanu idealnie do zera. Regulator nieskończony redukuje błąd, ale nie zdąży go wyeliminować. Regulator skończony przy domyślnym $S$ pozostawia znaczący uchyb końcowy, ponieważ horyzont sterowania kończy się zanim układ osiągnie równowagę.
 
-  \item \textbf{Czy zmiana macierzy $S$ może usprawnić regulator skończony? Jaka wartość $S$ działa lepiej?}
-        Tak. Większe $S$ wzmacnia karę końcową i przyspiesza zbieżność. Dla pozycji ogniwa $x_1$ przebiegi z $S=10I$ i $S=100I$ są praktycznie takie same jak dla regulatora nieskończonego; dla pozycji silnika $x_3$ widać niewielą poprawę przy większym $S$. $S=100I$ jest najbliżej rozwiązania nieskończonego, $S=10I$ daje umiarkowaną poprawę względem $S=I$, a $S=0.1I$ jest zbyt słabe.
+  \item \textbf{Czy zmiana macierzy $S$ poprawia regulator skończony? Jaka wartość $S$ jest najlepsza?}
+        Tak, zwiększenie wag w macierzy końcowej $S$ wymusza mniejszy błąd na końcu horyzontu sterowania. Najlepsze rezultaty uzyskano dla $S=100I$, gdzie przebiegi regulatora skończonego stają się bardzo zbliżone do regulatora z horyzontem nieskończonym. Mniejsze wartości ($S=0.1I$, $S=I$) dają gorszą zbieżność w krótkim horyzoncie czasu.
 \end{enumerate}
 
 \end{document}
